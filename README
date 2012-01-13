@@ -1,4 +1,4 @@
-this is the rough dsl I'maiming for
+this is the rough dsl I'm aiming for
 
 //some test file
 //make a mill
@@ -14,13 +14,13 @@ comment = mill.Comment()({create: false}) //returns an uninstantiated milled ob
 
 //mills.js
 //how to create vanilla mill
-mill.create 'Post'
+mill.wheel 'Post'
 	username: Faker.Name.findName();
 	email: etc.
 	text: etc.
 
 //how to create a Mongoose mill
-mill.create 'Comment'
+mill.wheel 'Comment'
 	orm: Mongoose
 	username: Faker.Name.findName();
 	email: etc.
