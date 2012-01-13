@@ -9,6 +9,11 @@
   "engines": {
     "node": "~0.4.12"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "Faker": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  }
 }
