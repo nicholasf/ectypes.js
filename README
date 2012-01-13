@@ -6,7 +6,7 @@ mill = require('mill');
 
 //factory call to generate model - Post
 post = mill.Post() //returns a vanilla, milled object
-comment =  mill.Comment() //returns an saved milled model
+comment =  mill.Comment() //returns a saved milled model
 comment = mill.Comment()({create: false}) //returns an unsaved milled model
 
 
