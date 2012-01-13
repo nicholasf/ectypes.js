@@ -1,0 +1,14 @@
+{
+  "author": "nicholas faiz",
+  "name": "assembly_line",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nicholasf/assembly_line.git"
+  },
+  "engines": {
+    "node": "~0.4.12"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,4 +1,28 @@
-AssemblyLine = require('assemblyLine');
+this is the rough dsl I'maiming for
 
-AssemblyLine.
+//some test file
+//make a mill
+mill = require('mill');
 
+//factory call to generate model - Post
+post = mill.Post() //returns a vanilla, milled object
+comment =  mill.Comment() //returns an instantiated, milled object
+comment = mill.Comment()({create: false}) //returns an uninstantiated milled ob
+ 
+
+
+//-----------
+
+//mills.js
+//how to create vanilla mill
+mill.create 'Post'
+	username: Faker.Name.findName();
+	email: etc.
+	text: etc.
+
+//how to create a Mongoose mill
+mill.create 'Comment'
+	orm: Mongoose
+	username: Faker.Name.findName();
+	email: etc.
+	text: etc.
