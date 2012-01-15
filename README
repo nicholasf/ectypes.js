@@ -21,13 +21,13 @@ comment = mill.Comment()({create: false}) //returns an unsaved milled model
 
 //mills.js
 //how to create vanilla mill
-mill.wheel 'Post'
+mill.factory 'Post'
 	username: Faker.Name.findName();
 	email: etc.
 	text: etc.
 
 //how to create a Mongoose mill
-mill.wheel 'Comment'
+mill.factory 'Comment'
 	orm: Mongoose
 	username: Faker.Name.findName();
 	email: etc.
