@@ -40,6 +40,7 @@ drafts.plan(
 		Comment: {
 			username: Faker.Name.findName(),
 			text: Faker.Lorem.sentences()
+			belongsTo: Post //this function is supplied by a strategy (see below)
 		}
 	});
 
@@ -78,8 +79,3 @@ An example strategy:
 An exception is made for the save function - Drafts will ignore it if it is found in a plan.
 
 
-1 - http://en.wikipedia.org/wiki/Strategy_pattern
-
-
-
-Drafts uses a simple lifecycle 
