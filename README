@@ -25,14 +25,15 @@ drafts.defaultStrategy = //an ORM strategy (see below)
 
 drafts.plan(
 	{
-		post: {
-			topic: Faker.Lorem.words()
+		Post: {
+			topic: Faker.Lorem.words(),
+			hasMany: Comment
 		}
 	});
 
 drafts.plan(
 	{
-		comment: {
+		Comment: {
 			username: Faker.Name.findName(),
 			text: Faker.Lorem.sentences()
 		}
@@ -41,32 +42,26 @@ drafts.plan(
 
 
 
-Using an ORM 
+Strategies and ORMS
 ------------
 There are two tricks to wrapping Drafts DSL around your favourite ORM - ensuring that foo.draft({...}) calls the relevant foo.save({...}) function (the draft function should return a persisted object) and integrating ORM specific functionality (e.g. associations) into the draft.
 
 
+Drafts will scan the strategy for variables that reference functions. If that variable name is used in the draft plan, then Drafts will call the strategy's function by the same name:
 
-
-List of ORMs, etc.: https://github.com/joyent/node/wiki/modules#wiki-database 
-
-You can then set a default strategy in your Drafts.
-
-
-Drafts.defaultStrategy = require('myStrategy')
-
+for example,
 
 
 Example Draft.NodeORM (node-orm) Strategy:
 
 {
+	hasMany: function(){
+			
+	},
 	save: Model.save()
 }
 
-
-
-
-create
+An exception is made for the save function - Drafts will ignore it if it is found in a plan.
 
 
 1 - http://en.wikipedia.org/wiki/Strategy_pattern
