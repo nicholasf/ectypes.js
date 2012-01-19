@@ -33,22 +33,24 @@ For now just include these in a file in your tests that is required before a tes
 drafts = require("drafts")
 drafts.defaultStrategy = //an ORM strategy (see below)
 
-drafts.plan(
-	{
-		Post: {
-			topic: Faker.Lorem.words(),
-			hasMany: Comment //this function is supplied by a strategy (see below)
-		}
-	});
 
-drafts.plan(
-	{
-		Comment: {
-			username: Faker.Name.findName(),
-			text: Faker.Lorem.sentences()
-			belongsTo: Post //this function is supplied by a strategy (see below)
-		}
-	});
+	drafts.plan(
+		{
+			Post: {
+				topic: Faker.Lorem.words(),
+				hasMany: Comment //this function is supplied by a strategy (see below)
+			}
+		});
+
+	drafts.plan(
+		{
+			Comment: {
+				username: Faker.Name.findName(),
+				text: Faker.Lorem.sentences()
+				belongsTo: Post //this function is supplied by a strategy (see below)
+			}
+		});
+
 
 Future ideas - a drafts.plans() function that takes an array of plans.
 
@@ -75,12 +77,13 @@ Drafts will scan the strategy for variables that reference functions. If that va
 
 An example strategy:
 
-{
-	hasMany: function(plan){
-		//we create 50 of plan and build the association here
-	},
-	save: model.save()
-}
+
+	{
+		hasMany: function(plan){
+			//we create 50 of plan and build the association here
+		},
+		save: model.save()
+	}
 
 
 Default Strategies.
