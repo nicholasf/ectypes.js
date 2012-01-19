@@ -1,7 +1,4 @@
-The title of this project will probably change, still messing about with name ideas.
-
-Other options: weft.js
-
+draft [drɑːft] n 1. a plan, sketch, or drawing of something
 
 DSL
 
@@ -9,25 +6,24 @@ this is the rough dsl I'm aiming for
 
 //some test file
 //make a mill
-mill = require('mill');
+draft = require('draft');
 
 //factory call to generate model - Post
-post = mill.Post() //returns a vanilla, milled object
-comment =  mill.Comment() //returns a saved milled model
-comment = mill.Comment()({create: false}) //returns an unsaved milled model
+post = draft.Post() //returns a vanilla, milled object
+comment =  draft.Comment() //returns a saved milled model
+comment = draft.Comment()({create: false}) //returns an unsaved milled model
 
 
 //-----------
 
-//mills.js
 //how to create vanilla mill
-mill.factory 'Post'
+draft.factory 'Post'
 	username: Faker.Name.findName();
 	email: etc.
 	text: etc.
 
 //how to create a Mongoose mill
-mill.factory 'Comment'
+draft.factory 'Comment'
 	orm: Mongoose
 	username: Faker.Name.findName();
 	email: etc.

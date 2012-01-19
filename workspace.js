@@ -1,8 +1,11 @@
-mill = require('./index')
+draft = require('./drafts')
 Faker = require('faker')
 
-mill.factory(
-	"posts": {
-		'username': Faker.Name.findName();
-	}
-})
+draft.plan(
+	{
+		post: {
+			username: Faker.Name.findName()
+		}
+	})
+
+draft.post({password: "123"})
