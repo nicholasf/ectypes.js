@@ -55,10 +55,10 @@ for example,
 Example Draft.NodeORM (node-orm) Strategy:
 
 {
-	hasMany: function(){
-			
+	hasMany: function(plan){
+		//we create 50 of plan and build the association here
 	},
-	save: Model.save()
+	save: model.save()
 }
 
 An exception is made for the save function - Drafts will ignore it if it is found in a plan.
