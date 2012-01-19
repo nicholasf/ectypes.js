@@ -1,14 +1,12 @@
-Drafts.js: an object & model generator with fake data. Define a set of Drafts for your model layer and have them populated with fake data.
+Drafts.js: an object generator with fake data (uses Faker.js). Define a set of Drafts for your model layer and have them populated with fake data.
 
 draft [drɑːft] n 1. a plan, sketch, or drawing of something
 
-DSL
+Drafts.js is able to integrate with any ORM system via strategies (see below). This allows for a clean DSL when setting up test data in your models.
 
-this is the rough dsl I'm aiming for
-
-//factory call to generate vanilla obj (no ORM) - Post
-foo = drafts.foo();
-
+Foo.draft({...}) for Models
+----------------------
+Simply call draft({...}) on the model. Any variables or functions in the argument to draft({...}) will be setup on the draft returned (and will override default values).
 
 //factory call to generate a model instance, created
 comment = Comment.draft();
@@ -18,11 +16,19 @@ should.exist comment.id
 comment = Comment.sketch();
 should.not.exist comment.id
 
+drafts.foo() for Generic Objects
+---------------------------------
+In case you don't want to use specific model classes you can set up a plan for any sort of object you might want to construct.
+
+//factory call to generate vanilla obj (no ORM)
+foo = drafts.foo();
+
 
 Draft Plans
 -----------
-
 Drafts are defined with plans. Plans simply explain the type of data the properties and functions of a model possess. 
+
+For now just include these in a file in your tests that is required before a test run.
 
 drafts = require("drafts")
 drafts.defaultStrategy = //an ORM strategy (see below)
@@ -76,6 +82,8 @@ An example strategy:
 	save: model.save()
 }
 
-An exception is made for the save function - Drafts will ignore it if it is found in a plan.
+
+Default Strategies.
+You can specify a default strategy, and this can be overridden in each plan by specifying an alternate strategy.
 
 
