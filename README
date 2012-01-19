@@ -1,4 +1,4 @@
-Drafts.js: object & model generator with fake data. 
+Drafts.js: an object & model generator with fake data. Define a set of Drafts for your model layer and have them populated with fake data.
 
 draft [drɑːft] n 1. a plan, sketch, or drawing of something
 
@@ -21,6 +21,7 @@ should.not.exist comment.id
 
 //-----------
 drafts = require("drafts")
+drafts.defaultStrategy = //an ORM strategy (see below)
 
 drafts.plan(
 	{
@@ -32,18 +33,24 @@ drafts.plan(
 drafts.plan(
 	{
 		comment: {
-			strategy: Drafts.ORM
 			username: Faker.Name.findName(),
 			text: Faker.Lorem.sentences()
 		}
 	});
 
 
-ORM Integration
----------------
-Create a strategy to wrap drafts new() and save() functions to the appropiate calls in favourite ORM (or other persistence techniques) library functions. See https://github.com/joyent/node/wiki/modules#wiki-database for a list of them.
 
-You can then set a default strategy in drafts.
+
+Using an ORM 
+------------
+There are two tricks to wrapping Drafts DSL around your favourite ORM - ensuring that foo.draft({...}) calls the relevant foo.save({...}) function (the draft function should return a persisted object) and integrating ORM specific functionality (e.g. associations) into the draft.
+
+
+
+
+List of ORMs, etc.: https://github.com/joyent/node/wiki/modules#wiki-database 
+
+You can then set a default strategy in your Drafts.
 
 
 Drafts.defaultStrategy = require('myStrategy')
@@ -53,7 +60,6 @@ Drafts.defaultStrategy = require('myStrategy')
 Example Draft.NodeORM (node-orm) Strategy:
 
 {
-	new: Model.new()
 	save: Model.save()
 }
 
