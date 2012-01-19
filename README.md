@@ -8,20 +8,23 @@ Foo.draft({...}) for Models
 ----------------------
 Simply call draft({...}) on the model. Any variables or functions in the argument to draft({...}) will be setup on the draft returned (and will override default values).
 
-//factory call to generate a model instance, created
-comment = Comment.draft();
-should.exist comment.id
 
-//factory call to generate a model instance, unsaved
-comment = Comment.sketch();
-should.not.exist comment.id
+	//factory call to generate a model instance, created
+	comment = Comment.draft();
+	should.exist comment.id
+
+
+	//factory call to generate a model instance, unsaved
+	comment = Comment.sketch();
+	should.not.exist comment.id
 
 drafts.foo() for Generic Objects
 ---------------------------------
 In case you don't want to use specific model classes you can set up a plan for any sort of object you might want to construct.
 
-//factory call to generate vanilla obj (no ORM)
-foo = drafts.foo();
+
+	//factory call to generate vanilla obj (no ORM)
+	foo = drafts.foo();
 
 
 Draft Plans
