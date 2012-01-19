@@ -7,7 +7,7 @@ DSL
 this is the rough dsl I'm aiming for
 
 //factory call to generate vanilla obj (no ORM) - Post
-post = drafts.post();
+foo = drafts.foo();
 
 
 //factory call to generate a model instance, created
@@ -19,7 +19,11 @@ comment = Comment.sketch();
 should.not.exist comment.id
 
 
-//-----------
+Draft Plans
+-----------
+
+Drafts are defined with plans. Plans simply explain the type of data the properties and functions of a model possess. 
+
 drafts = require("drafts")
 drafts.defaultStrategy = //an ORM strategy (see below)
 
@@ -27,7 +31,7 @@ drafts.plan(
 	{
 		Post: {
 			topic: Faker.Lorem.words(),
-			hasMany: Comment
+			hasMany: Comment //this function is supplied by a strategy (see below)
 		}
 	});
 
@@ -39,20 +43,30 @@ drafts.plan(
 		}
 	});
 
+Future ideas - a drafts.plans() function that takes an array of plans.
 
 
+Drafts Strategies and ORMS
+--------------------------
 
-Strategies and ORMS
-------------
-There are two tricks to wrapping Drafts DSL around your favourite ORM - ensuring that foo.draft({...}) calls the relevant foo.save({...}) function (the draft function should return a persisted object) and integrating ORM specific functionality (e.g. associations) into the draft.
+Strategies integrate an ORM into Drafts.
+
+Stratgies are responsible for 3 things:
+
+1) Handling the database connection.
+
+Fairly obvious. 
+
+2) Telling Drafts which ORM on the function to call when saving in the database, e.g. Comment.draft() needs to know how to create and save a Comment in the db.
+
+...
 
 
-Drafts will scan the strategy for variables that reference functions. If that variable name is used in the draft plan, then Drafts will call the strategy's function by the same name:
+3) Defining further ORM specific functions that can be used in Drafts plans, for e.g. associations between models (and plans)
 
-for example,
+Drafts will scan the strategy for variables that reference functions. If that variable name is used in the draft plan, then Drafts will call the strategy's function by the same name.
 
-
-Example Draft.NodeORM (node-orm) Strategy:
+An example strategy:
 
 {
 	hasMany: function(plan){
