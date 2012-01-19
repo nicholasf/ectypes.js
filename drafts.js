@@ -1,11 +1,11 @@
-var Drafts = {}
+var drafts = {}
 
-Drafts.version = "0.0.0";
-Drafts._plans = [];	
+drafts.VERSION = "0.0.0";
+drafts._plans = [];	
 
-Drafts.plan = function (plannedObj){
+drafts._plan = function (plannedObj){
 	this._plans.push(plannedObj)
 }
 
 
-if(typeof exports != "undefined"){for (var prop in Drafts){exports[prop] = Drafts[prop];}}
+if(typeof exports != "undefined"){for (var prop in drafts){exports[prop] = drafts[prop];}}

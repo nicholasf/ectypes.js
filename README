@@ -1,30 +1,70 @@
+Drafts.js: object & model generator with fake data. 
+
 draft [drɑːft] n 1. a plan, sketch, or drawing of something
 
 DSL
 
 this is the rough dsl I'm aiming for
 
-//some test file
-//make a mill
-draft = require('draft');
+//factory call to generate vanilla obj (no ORM) - Post
+post = drafts.post();
 
-//factory call to generate model - Post
-post = draft.Post() //returns a vanilla, milled object
-comment =  draft.Comment() //returns a saved milled model
-comment = draft.Comment()({create: false}) //returns an unsaved milled model
+
+//factory call to generate a model instance, created
+comment = Comment.draft();
+should.exist comment.id
+
+//factory call to generate a model instance, unsaved
+comment = Comment.sketch();
+should.not.exist comment.id
 
 
 //-----------
+drafts = require("drafts")
 
-//how to create vanilla mill
-draft.factory 'Post'
-	username: Faker.Name.findName();
-	email: etc.
-	text: etc.
+drafts.plan(
+	{
+		post: {
+			topic: Faker.Lorem.words()
+		}
+	});
 
-//how to create a Mongoose mill
-draft.factory 'Comment'
-	orm: Mongoose
-	username: Faker.Name.findName();
-	email: etc.
-	text: etc.
+drafts.plan(
+	{
+		comment: {
+			strategy: Drafts.ORM
+			username: Faker.Name.findName(),
+			text: Faker.Lorem.sentences()
+		}
+	});
+
+
+ORM Integration
+---------------
+Create a strategy to wrap drafts new() and save() functions to the appropiate calls in favourite ORM (or other persistence techniques) library functions. See https://github.com/joyent/node/wiki/modules#wiki-database for a list of them.
+
+You can then set a default strategy in drafts.
+
+
+Drafts.defaultStrategy = require('myStrategy')
+
+
+
+Example Draft.NodeORM (node-orm) Strategy:
+
+{
+	new: Model.new()
+	save: Model.save()
+}
+
+
+
+
+create
+
+
+1 - http://en.wikipedia.org/wiki/Strategy_pattern
+
+
+
+Drafts uses a simple lifecycle 
