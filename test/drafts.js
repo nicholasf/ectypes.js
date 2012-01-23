@@ -16,7 +16,4 @@ describe('it creates a plan for a vanilla object that can be used as a draft', f
 
 
 //test case planning
-
-//desrcribe vanilla object generation
-
 //pick an ORM and write to that
