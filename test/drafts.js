@@ -1,7 +1,10 @@
+var Faker = require('faker');
 var should = require('should');
-drafts = require('./drafts')
+var drafts = require('./../drafts');
 
-describe( 'it creates a plan that can be used as a draft', function(){
+console.log(drafts);
+
+describe( 'it creates a plan for a vanilla object that can be used as a draft', function(){
 	drafts.plan(
 		{
 			post: {
@@ -9,6 +12,13 @@ describe( 'it creates a plan that can be used as a draft', function(){
 			}
 		});
 
-	should.exist(drafts.post)
+	should.exist(drafts.post);
+	drafts.post.username.should.be.a('string');
 });
 
+
+//test case planning
+
+//desrcribe vanilla object generation
+
+//pick an ORM and write to that
