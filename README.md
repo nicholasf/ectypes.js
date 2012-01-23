@@ -26,7 +26,7 @@ In case you don't want to use specific model classes you can set up a plan for a
 
 
 	//factory call to generate vanilla obj (no ORM)
-	foo = drafts.foo();
+	foo = drafts.objs.foo();
 
 
 Draft Plans
