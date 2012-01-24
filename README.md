@@ -36,6 +36,9 @@ Drafts are defined with plans. Plans simply explain the type of data the propert
 
 For now just include these in a file in your tests that is required before a test run.
 
+
+//an example strategy for Mongoose
+
 drafts = require("drafts")
 drafts.defaultStrategy = //an ORM strategy (see below)
 
@@ -44,7 +47,7 @@ drafts.defaultStrategy = //an ORM strategy (see below)
 		{
 			Post: {
 				topic: Faker.Lorem.words(),
-				hasMany: Comment //this function is supplied by a strategy (see below)
+				comments: drafts.strategy(Comments) //this function is supplied by a strategy (see below)
 			}
 		});
 
@@ -53,7 +56,6 @@ drafts.defaultStrategy = //an ORM strategy (see below)
 			Comment: {
 				username: Faker.Name.findName(),
 				text: Faker.Lorem.sentences()
-				belongsTo: Post //this function is supplied by a strategy (see below)
 			}
 		});
 

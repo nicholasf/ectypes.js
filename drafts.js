@@ -8,14 +8,25 @@ drafts.plans = [];
 drafts.vanilla = {}
 
 drafts._build = function(){
-	this.plans.forEach(function(plan){
-			//take each plan, scan each first level property in plan for a matching model
-			//...
-			
+	this.plans.forEach(function(plan){			
 			//if no match, then create a vanilla object
 			for (p in plan){
-				// console.log(">>", p);
-				drafts.vanilla[p] = plan[p];
+				className = p.charAt(0).toUpperCase() + p.slice(1);
+				constant = global[className]
+
+				if (constant === undefined){
+					drafts.vanilla[p] = plan[p];
+				}
+				else {
+					//take each plan, scan each first level property in plan for a matching model
+					constant.draft = function(){};
+					
+					//if the object is defined then add a .draft() method to it
+					//subsequently, when draft() is triggered each variable and value (k,v) on the obj
+					//will be passed through to the strategy, before Drafts attempts to resolve it
+					//the strategy can then decide what to do with it, or simply return null
+				}
+
 			}
 		}
 	) 
