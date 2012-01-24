@@ -9,9 +9,9 @@ drafts.vanilla = {}
 
 drafts._build = function(){
 	this.plans.forEach(function(plan){
-			// console.log(">>", plan);
-
 			//take each plan, scan each first level property in plan for a matching model
+			//...
+			
 			//if no match, then create a vanilla object
 			for (p in plan){
 				// console.log(">>", p);
