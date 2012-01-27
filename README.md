@@ -6,18 +6,21 @@ draft [drɑːft] n 1. a plan, sketch, or drawing of something
 
 Drafts.js is able to integrate with any ORM system via strategies (see below). This allows for a clean DSL when setting up test data in your models.
 
-Foo.draft({...}) for Models
+
+This DSL won't work in javascript: Foo.draft({...}) for Models
 ----------------------
+drafts.Post()
+
 Simply call draft({...}) on the model. Any variables or functions in the argument to draft({...}) will be setup on the draft returned (and will override default values).
 
 
 	//factory call to generate a model instance, created
-	comment = Comment.draft();
+	comment = drafts.Comment();
 	should.exist comment.id
 
 
 	//factory call to generate a model instance, unsaved
-	comment = Comment.sketch();
+	comment = drafts.Comment();
 	should.not.exist comment.id
 
 drafts.foo() for Vanilla Objects

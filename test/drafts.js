@@ -20,7 +20,10 @@ describe('it creates a plan for a vanilla object that can be used as a draft', f
 			string: {}
 		});
 
-	should.exist(String.draft());
+		should.exist(drafts.String);
+
+	// console.log(">>>>>", String.draft());
+	// should.exist(String.draft());
 });
 
 // describe('setting a default strategy', function(){
