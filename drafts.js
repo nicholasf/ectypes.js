@@ -9,15 +9,25 @@ drafts.vanilla = {}
 
 drafts._build = function(){
 	this.plans.forEach(function(plan){			
-			//if no match, then create a vanilla object
 			for (p in plan){
 				className = p.charAt(0).toUpperCase() + p.slice(1);
 				constant = global[className]
 
 				if (constant === undefined){
+					//if no match, then create a vanilla object
 					drafts.vanilla[p] = plan[p];
 				}
 				else {
+					strategy = p.strategy;
+
+					if ((strategy === undefined) && (drafts.defaultStrategy === undefined)){
+						console.log("Missing strategy.");
+						strategy = {
+							save: function(){ console.log("Called save() on gapfill strategy")},
+							resolve: function(){ console.log("Called resolve() on gapfill strategy")}
+						};
+					}
+
 					//take each plan, scan each first level property in plan for a matching model
 					//console.log("verified that ", className, "is a valid js object");
 					//this constructor function should be wrapped by strategy functionality that obeys a common lifecycle
@@ -26,9 +36,18 @@ drafts._build = function(){
 					//1. create the object via the strategy
 					//2. fulfil the plan
 					//2.1 each value of the plan should be passed to the strategy, which than work out how to fulfill it.
+					exports[className] = function(){
+						obj = new constant;
+						for (prop in plan){
+							proceed = strategy.resolve(obj, prop); //let the strategy resolve the property (for associations, etc..)
+							if (proceed){
+								obj[prop] = prop;
+							}
+						}
 
-					drafts[className] = constant;
-					exports[className] = constant;
+						strategy.save(obj)
+						return obj;
+					};
 
 					// constant.prototype.draft = function(){ return "hello!"};
 					// console.log("added!, ",  String);

@@ -14,16 +14,13 @@ describe('it creates a plan for a vanilla object that can be used as a draft', f
 	drafts.vanilla.post.username.should.be.a('string');
 });
 
-describe('it creates a plan for a vanilla object that can be used as a draft', function(){
+describe('it creates a plan for a standard object that can be used as a draft', function(){
 	drafts.plan(
 		{
-			string: {}
+			string: {},
+			name: Faker.Name.findName()
 		});
-
 		should.exist(drafts.String);
-
-	// console.log(">>>>>", String.draft());
-	// should.exist(String.draft());
 });
 
 // describe('setting a default strategy', function(){
