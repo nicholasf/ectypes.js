@@ -5,6 +5,7 @@
 var report = {};
 
 exports.save = function(obj){
+	console.log("REACHED!!");
 	if (report[obj] === undefined){
 		report[obj] = 0
 	}

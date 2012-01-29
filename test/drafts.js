@@ -23,25 +23,25 @@ it('creates a plan for a standard object that can be used as a draft', function(
 		});
 
 	str = drafts.String();
-	console.log(str);
 	should.exist(str);
 	should.exist(str.name)
 });
 
-// describe("Strategies ...", function(){
-	// describe("setDefaultStrategy", function(){
-	// 	it("default strategies are set and used to construct the object", function(){
+describe("Strategies ...", function(){
+	describe("setDefaultStrategy", function(){
+		it("default strategies are set and used to construct the object", function(){
 
-	// 		var testStrategy = require('./strategies/test');
-	// 		drafts.setDefaultStrategy(testStrategy);
+			var testStrategy = require('./strategies/test');
+			drafts.setDefaultStrategy(testStrategy);
 
-	// 		drafts.plan(
-	// 			{
-	// 				string: {},
-	// 			});
+			drafts.plan(
+				{
+					string: {},
+				});
 			
-	// 		var str = drafts.String();
-	// 		str.should.have.property("madeBy", "The Drafts Test Strategy(tm)");
-	// 	});
-	// });
-// });
+			var str = drafts.String();
+			console.log(">>>", str);
+			str.should.have.property("madeBy", "The Drafts Test Strategy(tm)");
+		});
+	});
+});

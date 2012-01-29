@@ -8,7 +8,7 @@ drafts.plans = [];
 drafts.vanilla = {}
 
 drafts.setDefaultStrategy = function(strategy){
-	this.defaultStrategy = strategy;
+	drafts.defaultStrategy = strategy;
 }
 
 drafts._build = function(){
@@ -18,8 +18,7 @@ drafts._build = function(){
 				var className = p.charAt(0).toUpperCase() + p.slice(1);
 				var constant = global[className]
 
-console.log(">>", className, constant)
-
+	console.log(drafts.defaultStrategy)
 
 				if (constant === undefined){
 					//if no match, then create a vanilla object
@@ -54,6 +53,7 @@ console.log(">>", className, constant)
 									obj[prop] = prop;
 								}
 							}
+							console.log("calling save on strategy ...")
 
 							strategy.save(obj)
 						}
