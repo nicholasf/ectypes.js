@@ -30,7 +30,6 @@ it('creates a plan for a standard object that can be used as a draft', function(
 describe("Strategies ...", function(){
 	describe("setDefaultStrategy", function(){
 		it("default strategies are set and used to construct the object", function(){
-
 			var testStrategy = require('./strategies/test');
 			drafts.setDefaultStrategy(testStrategy);
 
@@ -42,6 +41,7 @@ describe("Strategies ...", function(){
 			var str = drafts.String();
 			console.log(">>>", str);
 			str.should.have.property("madeBy", "The Drafts Test Strategy(tm)");
+			testStrategy.report().string.resolutions.should.eql(0);
 		});
 	});
 });

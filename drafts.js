@@ -18,15 +18,12 @@ drafts._build = function(){
 				var className = p.charAt(0).toUpperCase() + p.slice(1);
 				var constant = global[className]
 
-	console.log(drafts.defaultStrategy)
-
 				if (constant === undefined){
 					//if no match, then create a vanilla object
 					drafts.vanilla[p] = plan[p];
 				}
 				else {
 					var strategy = null;
-					console.log("Default strategy: ", drafts.defaultStrategy);
 
 					if (p.strategy){
 						strategy = p.strategy;
@@ -44,7 +41,10 @@ drafts._build = function(){
 					}
 
 					exports[className] = function(){
-						var obj = new constant;
+						var obj = new constant();
+
+						console.log("it is ", constant, typeof obj);
+						console.log("prototype: ", constant.prototype);
 
 						if (strategy){						
 							for (var prop in plan[key]){
@@ -53,7 +53,6 @@ drafts._build = function(){
 									obj[prop] = prop;
 								}
 							}
-							console.log("calling save on strategy ...")
 
 							strategy.save(obj)
 						}
