@@ -8,14 +8,18 @@ drafts.plans = [];
 drafts.vanilla = {}
 
 drafts.setDefaultStrategy = function(strategy){
-	drafts.defaultStrategy =  strategy;
+	this.defaultStrategy = strategy;
 }
 
 drafts._build = function(){
 	this.plans.forEach(function(plan){			
-			for (p in plan){
+			for (var p in plan){
+				var key = p
 				var className = p.charAt(0).toUpperCase() + p.slice(1);
 				var constant = global[className]
+
+console.log(">>", className, constant)
+
 
 				if (constant === undefined){
 					//if no match, then create a vanilla object
@@ -32,34 +36,28 @@ drafts._build = function(){
 						strategy = drafts.defaultStrategy;
 					}
 					else {	
-						console.log("Missing strategy.");
+						console.log("Missing strategy, assigning a simple stub.");
 
 						strategy = {
-							save: function(){ console.log("Called save() on gapfill strategy")},
-							resolve: function(){ console.log("Called resolve() on gapfill strategy")}
+							save: function(obj){},
+							resolve: function(obj, prop){ return true;}
 						};
 					}
 
-					//take each plan, scan each first level property in plan for a matching model
-					//console.log("verified that ", className, "is a valid js object");
-					//this constructor function should be wrapped by strategy functionality that obeys a common lifecycle
-					//and that leverages the expressed plan
-
-					//1. create the object via the strategy
-					//2. fulfil the plan
-					//2.1 each value of the plan should be passed to the strategy, which than work out how to fulfill it.
 					exports[className] = function(){
-						console.log("constructing the object! ", className);
-						obj = new constant;
-						console.log(">>", plan)
-						for (prop in plan){
-							proceed = strategy.resolve(obj, prop); //let the strategy resolve the property (for associations, etc..)
-							if (proceed){
-								obj[prop] = prop;
+						var obj = new constant;
+
+						if (strategy){						
+							for (var prop in plan[key]){
+								var proceed = strategy.resolve(obj, prop); //let the strategy resolve the property (for associations, etc..)
+								if (proceed){
+									obj[prop] = prop;
+								}
 							}
+
+							strategy.save(obj)
 						}
 
-						strategy.save(obj)
 						return obj;
 					};
 				}
