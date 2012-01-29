@@ -17,10 +17,12 @@ describe('it creates a plan for a vanilla object that can be used as a draft', f
 describe('it creates a plan for a standard object that can be used as a draft', function(){
 	drafts.plan(
 		{
-			string: {},
-			name: Faker.Name.findName()
+			string: {
+				name: Faker.Name.findName()			
+			},
 		});
-		should.exist(drafts.String);
+
+	 should.exist(drafts.String());
 });
 
 // describe('setting a default strategy', function(){

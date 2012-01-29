@@ -10,15 +10,15 @@ drafts.vanilla = {}
 drafts._build = function(){
 	this.plans.forEach(function(plan){			
 			for (p in plan){
-				className = p.charAt(0).toUpperCase() + p.slice(1);
-				constant = global[className]
+				var className = p.charAt(0).toUpperCase() + p.slice(1);
+				var constant = global[className]
 
 				if (constant === undefined){
 					//if no match, then create a vanilla object
 					drafts.vanilla[p] = plan[p];
 				}
 				else {
-					strategy = p.strategy;
+					var strategy = p.strategy;
 
 					if ((strategy === undefined) && (drafts.defaultStrategy === undefined)){
 						console.log("Missing strategy.");
@@ -37,7 +37,9 @@ drafts._build = function(){
 					//2. fulfil the plan
 					//2.1 each value of the plan should be passed to the strategy, which than work out how to fulfill it.
 					exports[className] = function(){
+						console.log("constructing the object! ", className);
 						obj = new constant;
+						console.log(">>", plan)
 						for (prop in plan){
 							proceed = strategy.resolve(obj, prop); //let the strategy resolve the property (for associations, etc..)
 							if (proceed){
