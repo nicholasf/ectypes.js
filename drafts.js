@@ -50,16 +50,7 @@ drafts._build = function(){
 						strategy.save(obj)
 						return obj;
 					};
-
-					// constant.prototype.draft = function(){ return "hello!"};
-					// console.log("added!, ",  String);
-
-					//if the object is defined then add a .draft() method to it
-					//subsequently, when draft() is triggered each variable and value (k,v) on the obj
-					//will be passed through to the strategy, before Drafts attempts to resolve it
-					//the strategy can then decide what to do with it, or simply return null
 				}
-
 			}
 		}
 	) 

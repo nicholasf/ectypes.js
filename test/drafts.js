@@ -22,14 +22,9 @@ describe('it creates a plan for a standard object that can be used as a draft', 
 			},
 		});
 
-	 should.exist(drafts.String());
+	str = drafts.String();
+	should.exist(str);
+	should.exist(str.name)
 });
 
-// describe('setting a default strategy', function(){
-// 	var testStrategy = {msg: "test strategy"}
-// 	drafts.defaultStrategy = testStrategy
-
-// }
-
-//test case planning
-//pick an ORM and write to that
+describe("it ")
