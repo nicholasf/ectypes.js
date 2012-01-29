@@ -9,7 +9,8 @@ exports.save = function(obj){
 		report[obj] = 0
 	}
 	var saveCount = report[obj];
-	report[obj] = ++saveCount
+	report[obj] = ++saveCount;
+	obj.madeBy = "The Drafts Test Strategy(tm)";
 }
 
 exports.resolve = function(obj, planProperty){

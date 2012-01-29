@@ -7,6 +7,10 @@ drafts.VERSION = "0.0.0";
 drafts.plans = [];	
 drafts.vanilla = {}
 
+drafts.setDefaultStrategy = function(strategy){
+	drafts.defaultStrategy =  strategy;
+}
+
 drafts._build = function(){
 	this.plans.forEach(function(plan){			
 			for (p in plan){
@@ -18,10 +22,18 @@ drafts._build = function(){
 					drafts.vanilla[p] = plan[p];
 				}
 				else {
-					var strategy = p.strategy;
+					var strategy = null;
+					console.log("Default strategy: ", drafts.defaultStrategy);
 
-					if ((strategy === undefined) && (drafts.defaultStrategy === undefined)){
+					if (p.strategy){
+						strategy = p.strategy;
+					}
+					else if (drafts.defaultStrategy){
+						strategy = drafts.defaultStrategy;
+					}
+					else {	
 						console.log("Missing strategy.");
+
 						strategy = {
 							save: function(){ console.log("Called save() on gapfill strategy")},
 							resolve: function(){ console.log("Called resolve() on gapfill strategy")}
