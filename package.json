@@ -10,11 +10,12 @@
     "node": "~0.4.12"
   },
   "dependencies": {
-    "Faker": "*",
-    "mongoose": "*"
+    "Faker": "*"
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "mongoose": "*",
+    "async": "*"
   }
 }
