@@ -42,7 +42,6 @@ drafts._build = function(){
 					}
 
 					exports[className] = function(){
-
 						var obj = strategy.create(constant)
 
 						if (strategy){						
@@ -50,7 +49,7 @@ drafts._build = function(){
 								//let the strategy resolve the property (for associations, etc..)
 								var proceed = strategy.resolve(obj, prop); 
 								if (proceed){
-									obj[prop] = plan[key][prop];
+									obj[prop] = plan[key][prop]();
 								}
 							}
 

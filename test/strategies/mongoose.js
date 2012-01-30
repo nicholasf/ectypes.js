@@ -22,35 +22,18 @@ db.model('Toy', ToySchema);
 db.model('ToyBox', ToyBoxSchema);
 
 ToyBox =  db.model('ToyBox');
-// toybox = new ToyBox();
-
-// async = require('async');
-// async.series([
-// 	function(cb){
-
-// 		toybox.save(function(err){
-// 			console.log("Drafts.js: ", err);
-// 		});
-
-// 		cb(null, toybox)
-// 	}],
-// 	function(err, result){
-// 		console.log(result[0]);
-// 	}
-// );
-
-// console.log("-------- ---------");
+Toy = db.model('Toy');
 
 var mongooseStrategy = require('./../../lib/strategies/mongoose');
 mongooseStrategy.setDB(db)
 drafts.setDefaultStrategy(mongooseStrategy);
 
 
-it('creates a simple model', function(){
+it('creates and saves a simple model', function(){
 	drafts.plan(
 		{
 			ToyBox: {
-				name: Faker.Name.findName()
+				name: function(){ return Faker.Name.findName()}
 			}
 		});
 
@@ -58,3 +41,5 @@ it('creates a simple model', function(){
 	console.log("the return of ...", toybox);
 	should.exist(toybox);
 });
+
+it 
