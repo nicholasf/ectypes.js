@@ -42,20 +42,18 @@ describe("Strategies ...", function(){
 
 	});
 
-	describe("setDefaultStrategy", function(){
-		it("default strategies are set and used to construct the object", function(){
-			var testStrategy = require('./strategies/test');
-			drafts.setDefaultStrategy(testStrategy);
+	it("default strategies are set and used to construct the object", function(){
+		var testStrategy = require('./strategies/test');
+		drafts.setDefaultStrategy(testStrategy);
 
-			drafts.plan(
-				{
-					string: {},
-				});
-			
-			var str = drafts.String();
+		drafts.plan(
+			{
+				string: {},
+			});
+		
+		var str = drafts.String();
 
-			str.should.have.property("madeBy", "The Drafts Test Strategy(tm)");
-			testStrategy.report().String.resolutions.should.eql(0);
-		});
+		str.should.have.property("madeBy", "The Drafts Test Strategy(tm)");
+		testStrategy.report().String.resolutions.should.eql(0);
 	});
 });
