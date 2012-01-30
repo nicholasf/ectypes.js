@@ -44,6 +44,8 @@ drafts._build = function(){
 					exports[className] = function(){
 
 						var obj = strategy.create(constant)
+						
+						console.log(">>> ", obj);
 
 						if (strategy){						
 							for (var prop in plan[key]){

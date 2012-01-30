@@ -16,11 +16,30 @@ var ToyBoxSchema = new Schema({
 });
 
 
-var db = mongoose.createConnection('mongodb://localhost/draftsjs-test')
+var db = mongoose.createConnection('mongodb://localhost/draftsjs-test');
 
 db.model('Toy', ToySchema);
 db.model('ToyBox', ToyBoxSchema);
 
+ToyBox =  db.model('ToyBox');
+// toybox = new ToyBox();
+
+// async = require('async');
+// async.series([
+// 	function(cb){
+
+// 		toybox.save(function(err){
+// 			console.log("Drafts.js: ", err);
+// 		});
+
+// 		cb(null, toybox)
+// 	}],
+// 	function(err, result){
+// 		console.log(result[0]);
+// 	}
+// );
+
+// console.log("-------- ---------");
 
 var mongooseStrategy = require('./../../lib/strategies/mongoose');
 mongooseStrategy.setDB(db)
@@ -28,7 +47,6 @@ drafts.setDefaultStrategy(mongooseStrategy);
 
 
 it('creates a simple model', function(){
-
 	drafts.plan(
 		{
 			ToyBox: {
@@ -37,6 +55,6 @@ it('creates a simple model', function(){
 		});
 
 	toybox = drafts.ToyBox();
-
+	console.log("the return of ...", toybox);
 	should.exist(toybox);
 });
