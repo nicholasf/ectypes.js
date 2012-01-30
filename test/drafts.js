@@ -2,17 +2,17 @@ var Faker = require('faker');
 var should = require('should');
 var drafts = require('./../drafts');
 
-it('creates a plan for a vanilla object that can be used as a draft', function(){
-	drafts.plan(
-		{
-			post: {
-				username: Faker.Name.findName()
-			}
-		});
+// it('creates a plan for a vanilla object that can be used as a draft', function(){
+// 	drafts.plan(
+// 		{
+// 			post: {
+// 				username: Faker.Name.findName()
+// 			}
+// 		});
 
-	should.exist(drafts.vanilla.post);
-	drafts.vanilla.post.username.should.be.a('string');
-});
+// 	should.exist(drafts.vanilla.post);
+// 	drafts.vanilla.post.username.should.be.a('string');
+// });
 
 it('creates a plan for a standard object that can be used as a draft', function(){
 	drafts.plan(
@@ -39,9 +39,9 @@ describe("Strategies ...", function(){
 				});
 			
 			var str = drafts.String();
-			console.log(">>>", str);
+
 			str.should.have.property("madeBy", "The Drafts Test Strategy(tm)");
-			testStrategy.report().string.resolutions.should.eql(0);
+			testStrategy.report().String.resolutions.should.eql(0);
 		});
 	});
 });

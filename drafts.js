@@ -43,9 +43,6 @@ drafts._build = function(){
 					exports[className] = function(){
 						var obj = new constant();
 
-						console.log("it is ", constant, typeof obj);
-						console.log("prototype: ", constant.prototype);
-
 						if (strategy){						
 							for (var prop in plan[key]){
 								var proceed = strategy.resolve(obj, prop); //let the strategy resolve the property (for associations, etc..)
@@ -54,9 +51,9 @@ drafts._build = function(){
 								}
 							}
 
-							strategy.save(obj)
+							obj = strategy.save(obj)
 						}
-
+						
 						return obj;
 					};
 				}

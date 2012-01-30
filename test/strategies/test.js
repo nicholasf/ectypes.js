@@ -4,26 +4,26 @@
 //Strategies must support save and resolve behaviours
 var report = {};
 
-function initialize(obj){
-	klass = typeof obj
-	if (report[klass] === undefined){
-		report[klass] = {saves: 0, resolutions: 0}
+function initializeReport(obj){
+	identifier = obj.constructor.name
+	if (report[identifier] === undefined){
+		report[identifier] = {saves: 0, resolutions: 0}
 	}
 }
 
 exports.save = function(obj){
-	console.log(">>>>", typeof obj)
-	initialize(obj)
-	var saveCount = report[typeof obj].saves;
-	report[typeof obj].saves = ++saveCount;
+	initializeReport(obj)
+	var saveCount = report[obj.constructor.name].saves;
+	report[obj.constructor.name].saves = ++saveCount;
 	obj.madeBy = "The Drafts Test Strategy(tm)";
+	return obj;
 }
 
 //note this resolution returns NOTHING, so it will swallow all functions mapped to properties
 exports.resolve = function(obj, planProperty){
-	initialize(obj)
-	var resolutionsCount = report[typeof obj].resolutions;
-	report[typeof obj].resolutions = ++resolutionCount;	
+	initializeReport(obj)
+	var resolutionsCount = report[obj.constructor.name].resolutions;
+	report[obj.constructor.name].resolutions = ++resolutionCount;	
 }
 
 exports.report = function(){ 
