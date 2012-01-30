@@ -50,8 +50,7 @@ drafts._build = function(){
 								//let the strategy resolve the property (for associations, etc..)
 								var proceed = strategy.resolve(obj, prop); 
 								if (proceed){
-									console.log("building a property ...", prop);
-									obj[prop] = prop;
+									obj[prop] = plan[key][prop];
 								}
 							}
 
