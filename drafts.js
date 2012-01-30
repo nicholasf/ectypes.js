@@ -35,13 +35,15 @@ drafts._build = function(){
 						console.log("Missing strategy, assigning a simple stub.");
 
 						strategy = {
+							create: function(klass){return new klass();},
 							save: function(obj){return obj;},
 							resolve: function(obj, prop){ return true;}
 						};
 					}
 
 					exports[className] = function(){
-						var obj = new constant();
+
+						var obj = strategy.create(constant)
 
 						if (strategy){						
 							for (var prop in plan[key]){

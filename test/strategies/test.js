@@ -11,6 +11,12 @@ function initializeReport(obj){
 	}
 }
 
+exports.create = function(klass){
+	obj = new klass();	
+	obj.savedBy = "The Drafts Test Strategy(tm)";
+	return obj;
+}
+
 exports.save = function(obj){
 	initializeReport(obj)
 	var saveCount = report[obj.constructor.name].saves;

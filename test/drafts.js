@@ -28,6 +28,20 @@ it('creates a plan for a standard object that can be used as a draft', function(
 });
 
 describe("Strategies ...", function(){
+	it("supports strategy specific object creation", function(){
+		var testStrategy = require('./strategies/test');
+		drafts.setDefaultStrategy(testStrategy);
+
+		drafts.plan(
+			{
+				string: {},
+			});
+			
+		var str = drafts.String();		
+		str.should.have.property("savedBy", "The Drafts Test Strategy(tm)");
+
+	});
+
 	describe("setDefaultStrategy", function(){
 		it("default strategies are set and used to construct the object", function(){
 			var testStrategy = require('./strategies/test');
