@@ -31,7 +31,7 @@ drafts._build = function(){
 					else if (drafts.defaultStrategy){
 						strategy = drafts.defaultStrategy;
 					}
-					else {	
+					else {
 						console.log("Missing strategy, assigning a simple stub.");
 
 						strategy = {
@@ -44,20 +44,19 @@ drafts._build = function(){
 					exports[className] = function(){
 
 						var obj = strategy.create(constant)
-						
-						console.log(">>> ", obj);
 
 						if (strategy){						
 							for (var prop in plan[key]){
-								var proceed = strategy.resolve(obj, prop); //let the strategy resolve the property (for associations, etc..)
+								//let the strategy resolve the property (for associations, etc..)
+								var proceed = strategy.resolve(obj, prop); 
 								if (proceed){
+									console.log("building a property ...", prop);
 									obj[prop] = prop;
 								}
 							}
 
-							obj = strategy.save(obj)
+							obj = strategy.save(obj);
 						}
-
 						return obj;
 					};
 				}
