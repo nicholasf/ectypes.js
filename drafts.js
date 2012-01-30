@@ -35,7 +35,7 @@ drafts._build = function(){
 						console.log("Missing strategy, assigning a simple stub.");
 
 						strategy = {
-							save: function(obj){},
+							save: function(obj){return obj;},
 							resolve: function(obj, prop){ return true;}
 						};
 					}
@@ -53,7 +53,7 @@ drafts._build = function(){
 
 							obj = strategy.save(obj)
 						}
-						
+
 						return obj;
 					};
 				}
