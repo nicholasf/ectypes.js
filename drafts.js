@@ -3,7 +3,7 @@
 
 var drafts = {}
 
-drafts.VERSION = "0.0.0";
+drafts.VERSION = "0.0.1-alpha";
 drafts.plans = [];	
 drafts.vanilla = {}
 
