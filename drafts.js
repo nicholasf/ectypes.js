@@ -47,7 +47,7 @@ drafts._build = function(){
 						if (strategy){						
 							for (var prop in plan[key]){
 								//let the strategy resolve the property (for associations, etc..)
-								var proceed = strategy.resolve(obj, prop); 
+								var proceed = strategy.resolve(drafts, obj, prop, plan[key][prop]); 
 								if (proceed){
 									obj[prop] = plan[key][prop]();
 								}
