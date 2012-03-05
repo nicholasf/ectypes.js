@@ -18,10 +18,8 @@ drafts._build = function(){
 				var constant = global[className];
 
 				if (constant === undefined){
-					console.log('ok', plan[p]);
 					//if no match, then create a vanilla constructor
 					drafts[p] = plan[p];
-					console.log(">>>", drafts);
 				}
 				else {
 					var strategy = null;

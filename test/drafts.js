@@ -39,7 +39,6 @@ describe("Strategies ...", function(){
 			
 		var str = drafts.String();		
 		str.should.have.property("savedBy", "The Drafts Test Strategy(tm)");
-
 	});
 
 	it("default strategies are set and used to construct the object", function(){
@@ -48,12 +47,14 @@ describe("Strategies ...", function(){
 
 		drafts.plan(
 			{
-				string: {},
+				String: {
+					name: function(){ return Faker.Name.findName()}	
+				},
 			});
 		
 		var str = drafts.String();
 
-		str.should.have.property("madeBy", "The Drafts Test Strategy(tm)");
-		testStrategy.report().String.resolutions.should.eql(0);
+		str.should.have.property("savedBy", "The Drafts Test Strategy(tm)");
+		testStrategy.report().String.resolutions.should.eql(1);
 	});
 });

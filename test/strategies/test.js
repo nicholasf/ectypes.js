@@ -5,7 +5,7 @@
 var report = {};
 
 function initializeReport(obj){
-	identifier = obj.constructor.name
+	var identifier = obj.constructor.name
 	if (report[identifier] === undefined){
 		report[identifier] = {saves: 0, resolutions: 0}
 	}
@@ -21,18 +21,17 @@ exports.save = function(obj){
 	initializeReport(obj)
 	var saveCount = report[obj.constructor.name].saves;
 	report[obj.constructor.name].saves = ++saveCount;
-	obj.madeBy = "The Drafts Test Strategy(tm)";
+	obj.savedBy = "The Drafts Test Strategy(tm)";
 	return obj;
 }
 
 //note this resolution returns NOTHING, so it will swallow all functions mapped to properties
-exports.resolve = function(obj, planProperty){
+exports.resolve = function(drafts, obj, prop, value){
 	initializeReport(obj)
 	var resolutionsCount = report[obj.constructor.name].resolutions;
-	report[obj.constructor.name].resolutions = ++resolutionCount;	
+	report[obj.constructor.name].resolutions = ++resolutionsCount;
 }
 
 exports.report = function(){ 
-	console.log(report, "<< report");
-	return report
+	return report;
 };
