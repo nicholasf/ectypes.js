@@ -1,10 +1,10 @@
 {
   "author": "nicholas faiz",
-  "name": "assembly_line",
-  "version": "0.0.0",
+  "name": "drafts",
+  "version": "0.0.1-alpha",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nicholasf/assembly_line.git"
+    "url": "git://github.com/nicholasf/drafts.git"
   },
   "engines": {
     "node": "~0.4.12"
@@ -16,6 +16,7 @@
     "mocha": "*",
     "should": "*",
     "mongoose": "*",
-    "async": "*"
+    "async": "*",
+    "backbone": "*"
   }
 }

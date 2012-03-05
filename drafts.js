@@ -5,7 +5,7 @@ var drafts = {}
 
 drafts.VERSION = "0.0.1-alpha";
 drafts.plans = [];	
-drafts.vanilla = {}
+//drafts.vanilla = {}
 
 drafts.setDefaultStrategy = function(strategy){
 	drafts.defaultStrategy = strategy;
@@ -14,13 +14,14 @@ drafts.setDefaultStrategy = function(strategy){
 drafts._build = function(){
 	this.plans.forEach(function(plan){			
 			for (var p in plan){
-				var key = p
-				var className = p.charAt(0).toUpperCase() + p.slice(1);
-				var constant = global[className]
+				var className = p;
+				var constant = global[className];
 
 				if (constant === undefined){
-					//if no match, then create a vanilla object
-					drafts.vanilla[p] = plan[p];
+					console.log('ok', plan[p]);
+					//if no match, then create a vanilla constructor
+					drafts[p] = plan[p];
+					console.log(">>>", drafts);
 				}
 				else {
 					var strategy = null;
@@ -32,28 +33,27 @@ drafts._build = function(){
 						strategy = drafts.defaultStrategy;
 					}
 					else {
-						console.log("Missing strategy, assigning a simple stub.");
+						//console.log("Missing strategy, assigning a simple stub.");
 
 						strategy = {
 							create: function(klass){return new klass();},
 							save: function(obj){return obj;},
-							resolve: function(obj, prop){ return true;}
+							resolve: function(drafts, obj, prop, value){ return true;}
 						};
 					}
 
 					exports[className] = function(){
 						var obj = strategy.create(constant)
 
-						if (strategy){						
-							for (var prop in plan[key]){
-								//let the strategy resolve the property (for associations, etc..)
-								var proceed = strategy.resolve(drafts, obj, prop, plan[key][prop]); 
-								if (proceed){
-									obj[prop] = plan[key][prop]();
-								}
+						for (var prop in plan[className]){
+							//let the strategy resolve the property (for associations, etc..)
+							var proceed = strategy.resolve(drafts, obj, prop, plan[className][prop]); 
+
+							if (proceed){
+								obj[prop] = plan[className][prop]();
 							}
 
-							obj = strategy.save(obj);
+						obj = strategy.save(obj);
 						}
 						return obj;
 					};
@@ -68,4 +68,5 @@ drafts.plan = function (plannedObj){
 	this._build();
 }
 
-//if(typeof exports != "undefined"){for (var prop in drafts){exports[prop] = drafts[prop];}}
+for (var prop in drafts){exports[prop] = drafts[prop];}
+

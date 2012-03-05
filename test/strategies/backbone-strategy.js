@@ -1,19 +1,9 @@
 //this is a browser strategy
 var drafts = require('./../../drafts');
+var Backbone = require("backbone")
 
-
-var Toy = new Schema({
-	name: String
-});
-
-var ToyBox = new Schema({
-    name: String,
-    toys: 
-});
-
-
-// db.model('ToyBox', ToyBoxSchema);
-// ToyBox =  db.model('ToyBox');
+var models = {}
+models.Toy = Backbone.Model.extend();
 
 var backboneStrategy = require('./../../lib/strategies/backbone');
 drafts.setDefaultStrategy(backboneStrategy);
@@ -21,13 +11,13 @@ drafts.setDefaultStrategy(backboneStrategy);
 it('creates and saves a simple model', function(){
 	drafts.plan(
 		{
-			Toy: {
+			'models.Toy': {
 				name: function(){ return Faker.Name.findName()}
 				
 			}
 		});
 
-	toy = drafts.Toy();
+	toy = drafts.models.Toy();
 	should.exist(toy);
 });
 

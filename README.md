@@ -1,5 +1,8 @@
 Currently in proof of concept development, come back later please.
 
+The docs below will change a little bit ...
+
+
 Drafts.js: an object generator with fake data (uses Faker.js). Define a set of Drafts for your model layer and have them populated with fake data.
 
 draft [drɑːft] n 1. a plan, sketch, or drawing of something
@@ -18,10 +21,6 @@ Simply call draft({...}) on the model. Any variables or functions in the argumen
 	comment = drafts.Comment();
 	should.exist comment.id
 
-
-	//factory call to generate a model instance, unsaved
-	comment = drafts.Comment();
-	should.not.exist comment.id
 
 drafts.foo() for Vanilla Objects
 --------------------------------
