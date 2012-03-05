@@ -68,4 +68,4 @@ drafts.plan = function (plannedObj){
 	this._build();
 }
 
-if(typeof exports != "undefined"){for (var prop in drafts){exports[prop] = drafts[prop];}}
+//if(typeof exports != "undefined"){for (var prop in drafts){exports[prop] = drafts[prop];}}
