@@ -4,10 +4,7 @@ drafts.plan
 	Blog: 
 		model: App.Models.Blog
 		name: -> Faker.Name.findName()
-		urn:  -> Faker.Name.findName()
 	
-
-
 blog = drafts.Blog();
 
 blog.get('name'); #"Roslyn Anderson"
