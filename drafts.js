@@ -41,7 +41,6 @@ drafts._build = function(){
 
 					exports[className] = function(){
 						var obj = strategy.create(className, plan[className]);
-						console.log(">>>", obj);
 
 						for (var prop in plan[className]){
 							//let the strategy resolve the property (for associations, etc..)
@@ -50,9 +49,9 @@ drafts._build = function(){
 							if (proceed){
 								obj[prop] = plan[className][prop]();
 							}
+						}
 
 						obj = strategy.save(obj);
-						}
 						return obj;
 					};
 				}

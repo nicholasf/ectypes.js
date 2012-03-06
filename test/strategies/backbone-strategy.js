@@ -1,8 +1,11 @@
 //this is a browser strategy
 var drafts = require('./../../drafts');
-var Backbone = require("backbone")
+var Faker = require('faker');
+var should = require('should');
 
-var Toy = Backbone.Model.extend();
+//var $ = require('jquery');
+var Backbone = require("backbone");
+var Toy = Backbone.Model.extend({url: 'nope'});
 
 var backboneStrategy = require('./../../lib/strategies/backbone');
 drafts.setDefaultStrategy(backboneStrategy);
@@ -12,33 +15,10 @@ it('creates and saves a simple model', function(){
 		{
 			Toy: {
 				model: Toy,
-				name: function(){ return Faker.Name.findName()}
-				
+				name: function(){ return Faker.Name.findName()},
 			}
 		});
 
 	toy = drafts.Toy();
 	should.exist(toy);
 });
-
-// //the dsl is going to need help, cant deduce everything ... can try
-// it('creates embedded documents (using an embedded schema)', function(){
-// 	drafts.plan(
-// 		{
-// 			Toy: {
-// 				name: function(){ return Faker.Name.findName()}
-// 			}
-// 		});
-
-// 	drafts.plan(
-// 		{
-// 			ToyBox: {
-// 				name: function(){ return Faker.Name.findName()},
-// 				toys: [Embedded(ToySchema)]
-// 			}
-// 		});
-
-// 	toybox = drafts.ToyBox();
-// 	console.log(toybox);
-// 	should.exist(toybox.toys);
-// });
