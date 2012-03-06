@@ -1,11 +1,7 @@
-var drafts = {}
+var drafts = {};
 
 drafts.VERSION = "0.0.1-alpha";
 drafts.plans = [];	
-
-drafts.setDefaultStrategy = function(strategy){
-	drafts.defaultStrategy = strategy;
-}
 
 drafts._build = function(){
 	this.plans.forEach(function(plan){			
@@ -57,7 +53,7 @@ drafts._build = function(){
 }
 
 drafts.plan = function (plannedObj){
-	this.plans.push(plannedObj)
+	this.plans.push(plannedObj);
 	this._build();
 }
 
@@ -92,9 +88,10 @@ bbStrategy.resolve = function(drafts, obj, property, propertyValue){
 	else{
 		val = propertyValue;
 	}
+
 	obj.set(property, val);
 	return false;
 }
 
 
-drafts.setDefaultStrategy(bbStrategy)
+drafts.defaultStrategy = bbStrategy;
