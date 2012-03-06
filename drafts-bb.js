@@ -92,9 +92,6 @@ bbStrategy.resolve = function(drafts, obj, property, propertyValue){
 	else{
 		val = propertyValue;
 	}
-console.log(obj);
-console.log('thought so ...');
-
 	obj.set(property, val);
 	return false;
 }
