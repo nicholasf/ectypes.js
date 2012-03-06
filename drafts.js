@@ -17,7 +17,7 @@ drafts._build = function(){
 				var className = p;
 				var constant = global[className];
 
-				if (constant === undefined){
+				if (constant === undefined && drafts.defaultStrategy == null){
 					//if no match, then create a vanilla constructor
 					drafts[p] = plan[p];
 				}
@@ -32,16 +32,16 @@ drafts._build = function(){
 					}
 					else {
 						//console.log("Missing strategy, assigning a simple stub.");
-
 						strategy = {
-							create: function(klass){return new klass();},
+							create: function(klass, plan){return new klass();},
 							save: function(obj){return obj;},
 							resolve: function(drafts, obj, prop, value){ return true;}
 						};
 					}
 
 					exports[className] = function(){
-						var obj = strategy.create(constant)
+						var obj = strategy.create(className, plan[className]);
+						console.log(">>>", obj);
 
 						for (var prop in plan[className]){
 							//let the strategy resolve the property (for associations, etc..)
