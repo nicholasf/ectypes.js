@@ -1,7 +1,7 @@
 Just include drafts-bb.js in your testing platform. Ensure that you also have Faker.js https://github.com/marak/Faker.js/
 
 ````
-#example in coffee script
+#example in coffee-script
 drafts.plan
 	Blog: 
 		model: App.Models.Blog
