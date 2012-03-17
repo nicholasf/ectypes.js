@@ -1,4 +1,5 @@
-//this is a browser strategy
+//@BROWSER
+//browser-begins
 var drafts = require('./../../drafts');
 var Faker = require('faker');
 var should = require('should');
@@ -22,3 +23,5 @@ it('creates and saves a simple model', function(){
 	toy = drafts.Toy();
 	should.exist(toy);
 });
+
+//browser-ends

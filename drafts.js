@@ -1,3 +1,4 @@
+//browser build grab begins
 var drafts = {}
 
 drafts.VERSION = "0.0.1-alpha";
@@ -61,5 +62,8 @@ drafts.plan = function (plannedObj){
 	this._build();
 }
 
+//browser build grab ends
+
+//export as a module
 for (var prop in drafts){exports[prop] = drafts[prop];}
 

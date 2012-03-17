@@ -31,6 +31,19 @@ drafts.plan
 		username: -> Faker.Internet.userName()
 ````
 
+Properties can, of course, be overridden
+
+````
+#the above config applies
+
+drafts.plan
+	User:
+		model: Portal.Models.User
+		username: -> Faker.Internet.userName()
+
+drafts.User({username: 'Frodo'});
+````
+
 
 This was meant to be a more ambitious testing factory library (strategies let you add different persistence layers - e.g. mongodb via mongoose, etc.). For now drafts can support backbone.js models (and soon collections).
 

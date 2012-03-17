@@ -5,42 +5,59 @@ drafts.plans = [];
 
 drafts._build = function(){
 	this.plans.forEach(function(plan){			
-			for (var p in plan){
-				var className = p;
-				var strategy = null;
 
-				if (p.strategy){
-					strategy = p.strategy;
-				}
-				else if (drafts.defaultStrategy){
-					strategy = drafts.defaultStrategy;
-				}
-				else {
-					//console.log("Missing strategy, assigning a simple stub.");
-					strategy = {
-						create: function(klass, plan){return new klass();},
-						save: function(obj){return obj;},
-						resolve: function(drafts, obj, prop, value){ return true;}
-					};
-				}
+		for (var mapping in plan){
+			var strategy = null;
 
-				drafts[className] = function(){
-					var obj = strategy.create(className, plan[className]);
+			if (mapping.strategy){
+				strategy = mapping.strategy;
+			}
+			else if (drafts.defaultStrategy){
+				strategy = drafts.defaultStrategy;
+			}
+			else { 
+				//console.log("Missing strategy, assigning a simple stub.");
+				strategy = {
+					create: function(klass, plan){return new klass();},
+					save: function(obj){return obj;},
+					resolve: function(drafts, obj, prop, value){ return true;},
+					overrideProperty: function (obj, property, value){ obj[property] = value } 
+				};
+			}
 
-					for (var prop in plan[className]){
-						//let the strategy resolve the property (for associations, etc..)
-						var proceed = strategy.resolve(drafts, obj, prop, plan[className][prop]); 
+			drafts[mapping] = function(){
+				var obj = strategy.create(mapping, plan[mapping]);
+				var overriddenProperties = [];
 
-						if (proceed){
-							obj[prop] = plan[className][prop]();
+				for (var prop in plan[mapping]){
+					//check for overriding args
+					for (arg in arguments){
+//						console.log("does arg (", arguments[arg], ") have a property ", prop, "? - ", arguments[arg][prop])
+						if (arguments[arg][prop] !== undefined){
+							obj = strategy.overrideProperty(obj, prop, arguments[arg][prop]);	
+							console.log(obj.get(prop))				
+							console.log('property overridden', obj);	
+							overriddenProperties.push(prop);
 						}
 					}
 
-					obj = strategy.save(obj);
-					return obj;
-				};
-			}
+					if (overriddenProperties.indexOf(prop) >= 0) {
+						continue
+					};
+
+					//let the strategy resolve the property (for associations, etc..)
+					var proceed = strategy.resolve(drafts, obj, prop, plan[mapping][prop]); 
+
+					if (proceed){
+						obj[prop] = plan[mapping][prop]();
+					}
+				}
+
+				obj = strategy.save(obj);
+				return obj;
+			};
 		}
+	}
 	) 
 }
 
@@ -84,6 +101,12 @@ bbStrategy.resolve = function(drafts, obj, property, propertyValue){
 	obj.set(property, val);
 	return false;
 }
+
+bbStrategy.overrideProperty = function (obj, property, value){ 
+	obj.set(property, value);
+	return obj;
+} 
+
 
 
 drafts.defaultStrategy = bbStrategy;
