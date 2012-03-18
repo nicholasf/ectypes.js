@@ -11,7 +11,7 @@ function initializeReport(obj){
 	}
 }
 
-exports.create = function(klassName){
+exports.create = function(drafts, klassName){
 	klass = eval(klassName);
 	obj = new klass();	
 	obj.savedBy = "The Drafts Test Strategy(tm)";

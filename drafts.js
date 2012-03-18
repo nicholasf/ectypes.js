@@ -32,7 +32,7 @@ drafts._build = function(){
 			}
 
 			drafts[mapping] = function(){
-				var obj = strategy.create(mapping, plan[mapping]);
+				var obj = strategy.create(drafts, mapping, plan[mapping]);
 				var overriddenProperties = [];
 
 				for (var prop in plan[mapping]){
