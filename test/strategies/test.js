@@ -11,7 +11,8 @@ function initializeReport(obj){
 	}
 }
 
-exports.create = function(klass){
+exports.create = function(klassName){
+	klass = eval(klassName);
 	obj = new klass();	
 	obj.savedBy = "The Drafts Test Strategy(tm)";
 	return obj;
@@ -35,3 +36,5 @@ exports.resolve = function(drafts, obj, prop, value){
 exports.report = function(){ 
 	return report;
 };
+
+exports.overrideProperty = function (obj, property, value){ obj[property] = value } 
