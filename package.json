@@ -10,7 +10,8 @@
     "node": "~0.4.12"
   },
   "dependencies": {
-    "Faker": "*"
+    "Faker": "*",
+    "sequelize": "*"
   },
   "devDependencies": {
     "mocha": "*",

@@ -1,3 +1,57 @@
+
+Sequelize DSL:
+
+You've created a model called Project that looks like:
+
+var Project = sequelize.define('Project', {
+  title: Sequelize.STRING,
+  description: Sequelize.TEXT
+})
+
+You want to be able to auto generate Project models with cool development or test data!
+
+First, you set up the sequelize strategy with drafts.
+
+```
+var draftsSequelize = require ('drafts-sequelize');
+
+drafts.setStrategy(draftsSequelize);
+```
+
+Then you draft your data.
+
+```
+	drafts.plan(
+		{
+			Project: {
+				title: function(){ return Faker.Name.findName() },
+				description: function(){ return Faker.Lorem.findSentences() };
+			}
+		});
+
+	project = drafts.Project.build();
+
+```
+
+So, I redefine strategies to express the DSL of the underlying persistence mechanism (however the strategy writer wants), but override properties to generate the test data. The strategy might essentially be a facade pattern.
+
+For sequelize the strategy will define:
+- build
+- overrideProperty
+
+need to consider how to handle associations. 
+
+Then everything else is handled by the real sequelize model itself.
+
+
+
+
+
+
+
+
+## The below is old. Ignore for the timebeing
+
 Just include drafts-bb.js in your testing platform. Ensure that you also have Faker.js https://github.com/marak/Faker.js/
 
 ````
