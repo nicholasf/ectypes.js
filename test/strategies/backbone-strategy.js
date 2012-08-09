@@ -31,7 +31,6 @@ drafts.setDefaultStrategy(backboneStrategy);
 // 			}
 // 		});
 
-
 // 	toys = drafts.Toys();
 // 	should.exist(toys);
 // });
@@ -39,14 +38,18 @@ drafts.setDefaultStrategy(backboneStrategy);
 it('creates a collection filled with the corresponding model (if the model has been planned)', function(){
 	drafts.plan(
 		{
+			Toy: {
+				model: Toy,
+				name: function(){ return Faker.Name.findName()},
+			},
+
 			Toys: {
-				collection: Toy,
+				collection: Toys,
 				name: function(){ return Faker.Name.findName()},
 			}
 		});
 
-col = new Toys();
-console.log("----------- ", col.model, col.models);
+	col = new Toys();
 
 	toys = drafts.Toys();
 	console.log(toys);

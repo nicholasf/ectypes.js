@@ -21,8 +21,9 @@ drafts._build = function(){
 			else { 
 				//console.log("Missing strategy, assigning a simple stub.");
 				strategy = {
-					create: function(drafts, klassName){
+					create: function(klassName, plan){
 						klass = eval(klassName);
+						// console.log(klassName, " <<<<<");
 						return new klass();
 					},
 					save: function(obj){return obj;},
