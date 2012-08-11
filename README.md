@@ -1,4 +1,11 @@
 
+Drafts lets you define ways to build data structures and fill them with information. 
+
+Usually this is helpful when building information for tests or development.
+
+Create a clean DSL for testing that can utilize the best aspects of different persistence layers (sequelize, mongoose, node-orm etc. etc.)
+
+
 Sequelize DSL:
 
 You've created a model called Project that looks like:
@@ -6,7 +13,7 @@ You've created a model called Project that looks like:
 var Project = sequelize.define('Project', {
   title: Sequelize.STRING,
   description: Sequelize.TEXT
-})
+});
 
 You want to be able to auto generate Project models with cool development or test data!
 
@@ -14,11 +21,10 @@ First, you set up the sequelize strategy with drafts.
 
 ```
 var draftsSequelize = require ('drafts-sequelize');
-
 drafts.setStrategy(draftsSequelize);
 ```
 
-Then you draft your data.
+Then you draft your data. The only rule is that the name of your draft matches the name of the model you declared in sequelize.
 
 ```
 	drafts.plan(
@@ -26,18 +32,41 @@ Then you draft your data.
 			Project: {
 				title: function(){ return Faker.Name.findName() },
 				description: function(){ return Faker.Lorem.findSentences() };
-			}
-		});
+				hooks: {
+					build: {
+						function(project, cb) {
+							Task.create({});
+							project.tasks = task;
+							project.save().success(cb(project));
+					}
+				}
+ 			}
+ 		});
 
-	project = drafts.Project.build();
+	project = ø.Project.build();
 
 ```
 
-So, I redefine strategies to express the DSL of the underlying persistence mechanism (however the strategy writer wants), but override properties to generate the test data. The strategy might essentially be a facade pattern.
+So, I redefine strategies to express the DSL of the underlying persistence mechanism (however the strategy writer wants), but override properties to generate the test data. 
+
+
+Hooks: 
+take the name of a function in the strategy and are called after it, in the order of appearance.
+
+
 
 For sequelize the strategy will define:
 - build
 - overrideProperty
+
+associations - either hasOne, hasMany, or belongsTo
+
+
+
+
+later
+- create?
+- associations
 
 need to consider how to handle associations. 
 

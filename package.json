@@ -10,15 +10,12 @@
     "node": "~0.4.12"
   },
   "dependencies": {
-    "Faker": "*",
-    "sequelize": "*"
+    "Faker": "*"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*",
-    "mongoose": "*",
+    "vows": "*",
     "async": "*",
-    "backbone": "*",
-    "jquery": "*"
+    "assert": "*",
+    "sequelize": "1.5.0"
   }
 }
