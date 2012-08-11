@@ -26,8 +26,19 @@ Project.hasMany(Task, { foreignKey: 'project_id' });
 
 //sequelize.sync();
 
+var projectPlan = {
+	Project: {
+		title: function(){ return Faker.Name.findName() },
+		description: function(){ return Faker.Lorem.findSentences() }
+	}
+}
+
+	// Task: {
+	// 	title: function(){ return Faker.Name.findName() },		
+	// }
+
 vows.describe('strategies').addBatch({
-	'calling drafts.plan':{
+	'calling drafts.plan with incorrect config':{
 		topic: function(){ 
 			try {
 				drafts.plan({Project: {}}); 
@@ -39,6 +50,18 @@ vows.describe('strategies').addBatch({
 			'it returns err': function(topic){
 				assert.instanceOf(topic, Error);
 			}
+	},
+	'calling with a simple one model plan':{
+		topic: function(){
+			drafts.plan(projectPlan);
+			drafts.Project.build();		
+		},
+		'it can call build via the sequelize strategy': function(project){
+			assert.isNumber(project.id);
+		},
+		'the built object will have actual test data': function(project){
+
+		},
 	}
 }).export(module);
 

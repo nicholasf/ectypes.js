@@ -1,6 +1,8 @@
 var drafts = {};
+var package = require('./package.json');
 
-drafts.VERSION = "0.0.1-alpha";
+
+drafts.VERSION = package.version;
 drafts.plans = [];	
 
 drafts.setStrategy = function(strategy){
@@ -25,7 +27,14 @@ drafts._build = function(){
 				throw new Error("Drafts - please set a strategy");
 			}
 
-// 			drafts[mapping] = function(){
+			//this has to 
+			//drafts.Project.build
+			//this needs to be a call to the strategy, to resolve the invocation,
+			//and, it should also pass in the data generated from running the plan
+			drafts[mapping] = function(){	
+
+			}
+
 
 // 				var obj = strategy.create(drafts, mapping, plan[mapping]);
 // 				var overriddenProperties = [];
