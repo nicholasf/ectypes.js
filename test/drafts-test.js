@@ -1,7 +1,6 @@
 var drafts = require('./../drafts'),
 	Sequelize = require('sequelize'),
-	vows = require('vows'),
-	assert = require('assert'),
+	should = require('should'),
 	Faker = require('faker');
 
 var sequelize = new Sequelize('drafts_test', 'nicholas', null);
@@ -24,8 +23,6 @@ var Task = sequelize.define('task', {
 
 Project.hasMany(Task, { foreignKey: 'project_id' });
 
-//sequelize.sync();
-
 var projectPlan = {
 	Project: {
 		title: function(){ return Faker.Name.findName() },
@@ -33,48 +30,63 @@ var projectPlan = {
 	}
 }
 
-	// Task: {
-	// 	title: function(){ return Faker.Name.findName() },		
-	// }
-
-vows.describe('strategies').addBatch({
-	'calling drafts.plan with incorrect config':{
-		topic: function(){ 
+describe('strategies', function(){
+	it('borks if you call drafts.plan without setting a strategy', function(){
 			try {
 				drafts.plan({Project: {}}); 
 			}
 			catch(err){
-				return err;
+				should.exist(err);
 			}
-		},
-			'it returns err': function(topic){
-				assert.instanceOf(topic, Error);
-			}
-	},
-	'calling with a simple one model plan':{
-		topic: function(){
-			drafts.plan(projectPlan);
-			drafts.Project.build();		
-		},
-		'it can call build via the sequelize strategy': function(project){
-			assert.isNumber(project.id);
-		},
-		'the built object will have actual test data': function(project){
+	});
 
-		},
-	}
-}).export(module);
+	it('creates a proxy for planned foos', function(){
+		drafts.load(draftsSequelize);
+		drafts.plan(projectPlan);
+		should.exist(drafts.Project);
+	});
+
+	it('maps the strategies to the planned foos', function(){
+		drafts.load(draftsSequelize);
+		drafts.plan(projectPlan);
+		should.exist(drafts.Project.build);
+	});
+});
 
 
-// drafts.setStrategy = draftsSequelize;
+	// it('can handle a simple one model plan', function(){
+	// 	drafts.load(draftsSequelize);
+	// 	drafts.plan(projectPlan);
+	// 	project = drafts.Project.build();		
+	// });
 
-// vows.describe('Creating a new Quote').addBatch({
-// 	'HTTP GET for the quote form': {
+
+// vows.describe('strategies').addBatch({
+// 	'calling drafts.plan with incorrect config':{
 // 		topic: function(){ 
-// 			request('http://localhost:5000/leads', this.callback);
+// 			try {
+// 				drafts.plan({Project: {}}); 
+// 			}
+// 			catch(err){
+// 				return err;
+// 			}
 // 		},
-// 		'Valid data posted returns HTTP status of 200': function(error, resp, body){
-// 			assert.equal(resp.statusCode, 200);
-// 		}
-// 	}
+// 			'it returns err': function(topic){
+// 				assert.instanceOf(topic, Error);
+// 			},
+// 		'calling with a simple one model plan':{
+// 			topic: function(){
+// 				drafts.load(draftsSequelize);
+// 				drafts.plan(projectPlan);
+// 				drafts.Project.build();		
+// 			},
+// 			'it can call build via the sequelize strategy': function(project){
+// 				drafts.Project.build();
+// 				assert.isNumber(project.id);
+// 			},
+// 			'the built object will have actual test data': function(project){
+
+// 			},
+// 		}			
+// 	},
 // }).export(module);

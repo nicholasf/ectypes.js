@@ -1,11 +1,12 @@
 var drafts = {};
-var package = require('./package.json');
+var package = require('./package.json')
+	, _ = require('underscore');
 
 
 drafts.VERSION = package.version;
 drafts.plans = [];	
 
-drafts.setStrategy = function(strategy){
+drafts.load = function(strategy){
 	drafts.strategy = strategy;
 }
 
@@ -20,50 +21,23 @@ drafts._build = function(){
 				strategy = mapping.strategy;
 			}
 			else if (drafts.strategy){
-				chosenStrategy = drafts.strategy;
+				var chosenStrategy = drafts.strategy;
 			}
 			else { 
-				//console.log("Missing strategy, assigning a simple stub.");
 				throw new Error("Drafts - please set a strategy");
 			}
 
-			//this has to 
-			//drafts.Project.build
-			//this needs to be a call to the strategy, to resolve the invocation,
-			//and, it should also pass in the data generated from running the plan
-			drafts[mapping] = function(){	
+			drafts[mapping] = {};
 
+			for (var prop in drafts.strategy) {
+				var ignoreIt = _.find(drafts.strategy.ignores, function(funcName){
+					return prop === funcName;
+				})
+
+				if (!ignoreIt){
+					drafts[mapping][prop] = drafts.strategy[prop];
+				}
 			}
-
-
-// 				var obj = strategy.create(drafts, mapping, plan[mapping]);
-// 				var overriddenProperties = [];
-
-// 				for (var prop in plan[mapping]){
-// 					//check for overriding args
-// 					for (arg in arguments){
-// //						console.log("does arg (", arguments[arg], ") have a property ", prop, "? - ", arguments[arg][prop])
-// 						if (arguments[arg][prop] !== undefined){
-// 							obj = strategy.overrideProperty(obj, prop, arguments[arg][prop]);	
-// 							overriddenProperties.push(prop);
-// 						}
-// 					}
-
-// 					if (overriddenProperties.indexOf(prop) >= 0) {
-// 						continue
-// 					};
-
-// 					//let the strategy resolve the property (for associations, etc..)
-// 					var proceed = strategy.resolve(drafts, obj, prop, plan[mapping][prop]); 
-
-// 					if (proceed){
-// 						obj[prop] = plan[mapping][prop]();
-// 					}
-// 				}
-
-// 				obj = strategy.save(obj);
-// 				return obj;
-// 			};
 
 			exports[mapping] = drafts[mapping]; //remove this in browser build
 		}
