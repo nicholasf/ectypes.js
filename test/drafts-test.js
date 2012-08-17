@@ -7,13 +7,13 @@ var sequelize = new Sequelize('drafts_test', 'nicholas', null);
 
 var draftsSequelize = require('./../lib/strategies/sequelize').setup(sequelize);
 
-var Project = sequelize.define('project', {
+var Project = sequelize.define('projects', {
 	id: { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true },
  	title: Sequelize.STRING,
   description: Sequelize.TEXT
 });
  
-var Task = sequelize.define('task', {
+var Task = sequelize.define('tasks', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true },
   project_id: { type: Sequelize.INTEGER, allowNull: false},
   title: Sequelize.STRING,

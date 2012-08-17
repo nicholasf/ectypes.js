@@ -1,4 +1,4 @@
-Drafts is a DSL letting you specify how your models should be populated with data. It utilizes a strategy pattern to let you specify whichever persistence layer you like to use- proxying calls between mapped objects to the persistence layer, and passing in generated test data along the way.
+Drafts lets specify how your models should be populated with data. It utilizes a strategy pattern specify proxied calls to whichever underlying persistence layer(s) you might like to use - find a strategy for your persistence layer or write your own. They're very simple to write.
 
 Current strategies - sequelize - http://www.sequelizejs.com/ . (Only build is supported, but that's enough to begin with).
 
