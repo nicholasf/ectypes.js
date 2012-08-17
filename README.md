@@ -1,3 +1,11 @@
+Drafts is a DSL letting you specify how your models should be populated with data. It utilizes a strategy pattern to let you specify whichever persistence layer you like to use- proxying calls between mapped objects to the persistence layer, and passing in generated test data along the way.
+
+Current strategies - sequelize - http://www.sequelizejs.com/ . (Only build is supported, but that's enough to begin with).
+
+Future strategies - mongodb (probaby mongolian).
+
+See INFO.
+
 Drafts is in alpha status. I plan to rename it and improve it over time, but it's functional for Sequelize.
 
 INSTALLING
@@ -5,9 +13,6 @@ INSTALLING
 npm install drafts
 
 INFO
-
-Drafts lets you create test objects (usually models for persistence layers) filled with helpful data. To do so you create 'strategy' for whichever database client you are using (or ORM layer). Each strategy will specify its own DSL, appropriate to whichever persistence method you follow.
-
 
 For now, see test/drafts-test.js to gain an understanding.
 
@@ -28,7 +33,7 @@ You want to be able to auto generate Project models with cool development or tes
 First, you set up the sequelize strategy with drafts.
 
 ```
-var draftsSequelize = require ('drafts-sequelize');
+var draftsSequelize = require('drafts-sequelize');
 drafts.load(draftsSequelize);
 ```
 
