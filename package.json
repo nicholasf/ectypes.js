@@ -6,8 +6,9 @@
     "type": "git",
     "url": "git://github.com/nicholasf/drafts.git"
   },
+  "main": "lib/drafts",
   "engines": {
-    "node": "~0.4.12"
+    "node": "~0.8.4"
   },
   "dependencies": {
     "Faker": "*",

@@ -12,6 +12,12 @@ INSTALLING
 
 npm install drafts
 
+RUNNING TESTS
+
+mocha --ignore-leaks tests/drafts-test.js 
+
+(There's a global leak coming from a dependency, can't help it).
+
 INFO
 
 For now, see test/drafts-test.js to gain an understanding.

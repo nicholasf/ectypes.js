@@ -1,11 +1,11 @@
-var drafts = require('./../drafts'),
+var drafts = require('./../lib/drafts'),
 	Sequelize = require('sequelize'),
 	should = require('should'),
 	Faker = require('faker');
 
 var sequelize = new Sequelize('drafts_test', 'nicholas', null);
 
-var draftsSequelize = require('./../drafts-sequelize').setup(sequelize);
+var draftsSequelize = require('./../lib/strategies/sequelize').setup(sequelize);
 
 var Project = sequelize.define('project', {
 	id: { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true },
