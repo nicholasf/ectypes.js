@@ -13,19 +13,21 @@ var Project = sequelize.define('projects', {
   description: Sequelize.TEXT
 });
  
-var Task = sequelize.define('tasks', {
-  id: { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true },
-  project_id: { type: Sequelize.INTEGER, allowNull: false},
-  title: Sequelize.STRING,
-  description: Sequelize.TEXT,
-  deadline: Sequelize.DATE
+//a var and table name with more complex pluralization and underscoring requirements
+var SimpleRequest = sequelize.define('simple_requests', {
+	id: { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true },
+ 	title: Sequelize.STRING,
 });
-
-Project.hasMany(Task, { foreignKey: 'project_id' });
 
 var projectPlan = {
 	Project: {
 		title: function(){ return Faker.Name.findName() }
+	}
+}
+
+var requestPlan = {
+	SimpleRequest: {
+		title: function(){ return Faker.Name.findName() }		
 	}
 }
 
@@ -56,6 +58,13 @@ describe('strategies', function(){
 		drafts.plan(projectPlan);
 		var project = drafts.Project.build();
 		should.exist(project.title);
+	});
+
+	it('constructs the planned foo (with two names for pluralization and underscoring)', function(){
+		drafts.load(draftsSequelize);
+		drafts.plan(requestPlan);
+		var request = drafts.SimpleRequest.build();
+		should.exist(request.title);
 	});
 
 	it('throws an error if it cannot locate the corresponding sequelize dao', function(){
