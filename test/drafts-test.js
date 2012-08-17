@@ -25,8 +25,7 @@ Project.hasMany(Task, { foreignKey: 'project_id' });
 
 var projectPlan = {
 	Project: {
-		title: function(){ return Faker.Name.findName() },
-		description: function(){ return Faker.Lorem.findSentences() }
+		title: function(){ return Faker.Name.findName() }
 	}
 }
 
@@ -51,42 +50,11 @@ describe('strategies', function(){
 		drafts.plan(projectPlan);
 		should.exist(drafts.Project.build);
 	});
+
+	it('constructs the planned foo', function(){
+		drafts.load(draftsSequelize);
+		drafts.plan(projectPlan);
+		var project = drafts.Project.build();
+		should.exist(project.title);
+	});
 });
-
-
-	// it('can handle a simple one model plan', function(){
-	// 	drafts.load(draftsSequelize);
-	// 	drafts.plan(projectPlan);
-	// 	project = drafts.Project.build();		
-	// });
-
-
-// vows.describe('strategies').addBatch({
-// 	'calling drafts.plan with incorrect config':{
-// 		topic: function(){ 
-// 			try {
-// 				drafts.plan({Project: {}}); 
-// 			}
-// 			catch(err){
-// 				return err;
-// 			}
-// 		},
-// 			'it returns err': function(topic){
-// 				assert.instanceOf(topic, Error);
-// 			},
-// 		'calling with a simple one model plan':{
-// 			topic: function(){
-// 				drafts.load(draftsSequelize);
-// 				drafts.plan(projectPlan);
-// 				drafts.Project.build();		
-// 			},
-// 			'it can call build via the sequelize strategy': function(project){
-// 				drafts.Project.build();
-// 				assert.isNumber(project.id);
-// 			},
-// 			'the built object will have actual test data': function(project){
-
-// 			},
-// 		}			
-// 	},
-// }).export(module);

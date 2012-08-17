@@ -16,26 +16,28 @@ drafts._build = function(){
 		for (var mapping in plan){
 			var strategy = null;
 
-			//checks for _strategy on a per plan basis to override the default
 			if (mapping._strategy){
 				strategy = mapping.strategy;
 			}
-			else if (drafts.strategy){
-				var chosenStrategy = drafts.strategy;
-			}
-			else { 
+			else if (!drafts.strategy){
 				throw new Error("Drafts - please set a strategy");
 			}
 
 			drafts[mapping] = {};
 
-			for (var prop in drafts.strategy) {
-				var ignoreIt = _.find(drafts.strategy.ignores, function(funcName){
-					return prop === funcName;
-				})
+			var transformedVals = {};
+			for (var val in plan[mapping]){
+				transformedVals[val] = plan[mapping][val]();
+			}
 
-				if (!ignoreIt){
-					drafts[mapping][prop] = drafts.strategy[prop];
+			for (var prop in drafts.strategy) {
+				var ignoring = _.include(drafts.strategy.ignores, prop);
+
+				if (!ignoring){
+					var fastenProp = prop;
+					drafts[mapping][prop] = function(){
+						return drafts.strategy[fastenProp](mapping, transformedVals);
+					}
 				}
 			}
 
