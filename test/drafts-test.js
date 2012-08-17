@@ -57,4 +57,16 @@ describe('strategies', function(){
 		var project = drafts.Project.build();
 		should.exist(project.title);
 	});
+
+	it('throws an error if it cannot locate the corresponding sequelize dao', function(){
+		drafts.load(draftsSequelize);
+		drafts.plan({Fail:{}});
+
+		try{
+			drafts.Fail.build();
+		}
+		catch(err){
+			should.exist(err);
+		}
+	})
 });
