@@ -4,12 +4,10 @@ exports.setup = function(){
 };
 
 exports.build = function(model, values){ 
-	console.log('build');
 	return values;
 };
 
 exports.create = function(model, values){ 
-	console.log('create');
 	return values;
 };
 
