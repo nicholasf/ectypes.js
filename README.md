@@ -61,7 +61,7 @@ ectypes.add({
 ```
 
 
-### Writing Strategies
+## Writing Strategies
 
 Ectypes uses a strategy pattern to specify proxied calls to whichever underlying persistence layer(s) you might like to use - they're very simple to write. 
 
@@ -71,8 +71,13 @@ Current strategies - sequelize - http://www.sequelizejs.com/ . (Only build is su
 
 If you write one, please let me know.
 
-RUNNING TESTS
+## Running Tests
 
 ```
 mocha tests/ectypes-test.js 
 ```
+
+
+## More Info
+
+I originally had Ectypes working for Backbone.js, too. So it is possible to enable this testing for browser based development. If anyone wants this to discuss it, let me know.
