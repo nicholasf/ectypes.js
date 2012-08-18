@@ -67,8 +67,7 @@ In the future I'll be adding hooks, which will look something like the below (ho
 			Project: {
 				title: function(){ return Faker.Name.findName() },
 				description: function(){ return Faker.Lorem.findSentences() };
-
-				hooks: {
+				_hooks: {
 					build: {
 						function(project, cb) {
 							Task.create({});

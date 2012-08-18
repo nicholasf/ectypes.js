@@ -79,3 +79,39 @@ describe('strategies', function(){
 		}
 	})
 });
+
+var projectHookPlan = {
+	Project: {
+		title: function(){ return Faker.Name.findName() }
+		, _hooks: [{
+			'concats _hooked onto the project title': function(project, functionName){
+				console.log(" CALLED! ");
+				project.title = project.title + "_hooked_" + functionName;
+				return project;
+			}
+		}]
+	}
+}
+
+
+describe('hooks', function(){
+	drafts.load(draftsSequelize);
+	drafts.plan(projectHookPlan);
+	var project = drafts.Project.build();
+	var project3 = drafts.Project.build();
+
+	it('constructs the planned foo', function(){
+		project.title.should.match(/hooked/);
+		console.log(project.title);
+	});
+
+	it('passes in the function name used, so logic can choose whether or not to hook', function(){
+		project.title.should.match(/build/);
+		console.log(project.title, "< 1");
+		var project2 = drafts.Project.build();
+		console.log(project2.title, "< 2");
+//		project2.title.should.match(/build/);
+		console.log(project3.title, "< 3");
+	});
+
+});
