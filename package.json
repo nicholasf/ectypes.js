@@ -11,14 +11,10 @@
     "node": "~0.8.4"
   },
   "dependencies": {
-    "Faker": "*",
-    "mocha": "~1.3.2",
-    "should": "~1.1.0",
-    "underscore": "~1.3.3",
-    "lingo": "0.0.5"
   },
   "devDependencies": {
-    "async": "*",
-    "sequelize": "1.5.0"
+    "Faker": "*",
+    "mocha": "~1.3.2",
+    "should": "~1.1.0"
   }
 }
