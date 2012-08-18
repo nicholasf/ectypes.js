@@ -2,10 +2,12 @@
 
 A way to produce test objects quickly with any persistence layer.
 
-## Meaning
+### The Name
 
 ectype (plural ectypes)
 (philosophy) A copy; usually contrasted with the original, or archetype.  
+
+As opposed to prototype, ectype originally meant “wrought in relief” in Greek. Its roots are ec, a variant of “ex,” and týpos, a “figure on a wall.”
 
 ## Installation
 
