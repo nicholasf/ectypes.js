@@ -49,7 +49,7 @@ ectypes.add({
 	Project: {
 		title: function(){ return Faker.Name.findName() }
 		, hooks: ["after creation, add a task to the project", function(project, funcName){
-			if (funcName === "creation"){ 
+			if (funcName === "create"){ 
 			project.addTask(ectypes.Task.build()); 
 		}
 		}]
@@ -71,5 +71,6 @@ If you write one, please let me know.
 
 RUNNING TESTS
 
+```
 mocha tests/ectypes-test.js 
-
+```
