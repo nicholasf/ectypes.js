@@ -110,8 +110,8 @@ describe('hooks', function(){
 		console.log(project.title, "< 1");
 		var project2 = drafts.Project.build();
 		console.log(project2.title, "< 2");
-//		project2.title.should.match(/build/);
 		console.log(project3.title, "< 3");
+		project2.title.should.match(/build/);
 	});
 
 });
