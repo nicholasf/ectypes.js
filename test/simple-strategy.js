@@ -1,13 +1,15 @@
-//just a simple strategy for testing
-var strategy = {};
-
-strategy.setup = function(){
+//a simple strategy for testing
+exports.setup = function(){
 	return 'setup!';
 };
 
-exports.setup = strategy.setup;
-
 exports.build = function(model, values){ 
+	console.log('build');
+	return values;
+};
+
+exports.create = function(model, values){ 
+	console.log('create');
 	return values;
 };
 
