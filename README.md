@@ -1,3 +1,8 @@
+Eccies, a made up, pluralized form of Ectype.
+
+Ectype - A reproduction; copy.
+
+
 Drafts lets specify how your models should be populated with data. It utilizes a strategy pattern specify proxied calls to whichever underlying persistence layer(s) you might like to use - find a strategy for your persistence layer or write your own. They're very simple to write.
 
 Current strategies - sequelize - http://www.sequelizejs.com/ . (Only build is supported, but that's enough to begin with).

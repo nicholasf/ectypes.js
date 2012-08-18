@@ -1,10 +1,10 @@
 {
   "author": "nicholas faiz",
-  "name": "drafts",
-  "version": "0.0.2-alpha",
+  "name": "ectypes",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nicholasf/drafts.git"
+    "url": "git://github.com/nicholasf/ectypes.git"
   },
   "main": "lib/drafts",
   "engines": {
