@@ -1,87 +1,75 @@
-Eccies, a made up, pluralized form of Ectype.
+# ectypes
 
-Ectype - A reproduction; copy.
+A way to produce test objects quickly with any persistence layer.
+
+## Meaning
+
+ectype (plural ectypes)
+(philosophy) A copy; usually contrasted with the original, or archetype.  
+
+## Installation
+
+```
+npm install ectypes
+```
 
 
-Drafts lets specify how your models should be populated with data. It utilizes a strategy pattern specify proxied calls to whichever underlying persistence layer(s) you might like to use - find a strategy for your persistence layer or write your own. They're very simple to write.
+## Explanation
+
+Ectypes by itself is a DSL for buiding data types and specifying how they should be filled with data. 
+
+Ectypes take descriptions of data types to build, usually in a test context.
+
+```
+ectypes.add({
+	Project: {
+		title: function(){ return Faker.Name.findName() }
+	}
+});
+```
+
+Ectypes need **strategies** to do things with the type.
+
+```
+ectypes.load(simpleStrategy);
+```
+
+Every function on the strategy (except for what is listed in an **ignores** array) is then mapped to the type, for example
+
+```
+project = ectypes.Project.build();
+console.log(project.title); //gives 'Elaina Orn', a value produced by the Faker library.
+```
+
+
+Ectypes can also take hooks to run on the produced object after a strategy's function has executed.
+
+```
+ectypes.add({
+	Project: {
+		title: function(){ return Faker.Name.findName() }
+		, hooks: ["after creation, add a task to the project", function(project, funcName){
+			if (funcName === "creation"){ 
+			project.addTask(ectypes.Task.build()); 
+		}
+		}]
+	}
+	, Task {title: function(){ return Faker.Name.findName())
+});
+```
+
+
+### Writing Strategies
+
+Ectpyes uses a strategy pattern to specify proxied calls to whichever underlying persistence layer(s) you might like to use - they're very simple to write. 
+
+Current examples:
 
 Current strategies - sequelize - http://www.sequelizejs.com/ . (Only build is supported, but that's enough to begin with).
 
-Future strategies - mongodb (probaby mongolian).
-
-See INFO.
-
-Drafts is in alpha status. I plan to rename it and improve it over time, but it's functional for Sequelize.
-
-INSTALLING
-
-npm install drafts
+If you write one, please let me know.
 
 RUNNING TESTS
 
-mocha --ignore-leaks tests/drafts-test.js 
+mocha tests/ectypes-test.js 
 
-(There's a global leak coming from a dependency, can't help it).
-
-INFO
-
-For now, see test/drafts-test.js to gain an understanding.
-
-Future plans - hooks, to help build associations.
-
-
-Sequelize DSL:
-
-You've created a model called Project that looks like:
-
-var Project = sequelize.define('Project', {
-  title: Sequelize.STRING,
-  description: Sequelize.TEXT
-});
-
-You want to be able to auto generate Project models with cool development or test data!
-
-First, you set up the sequelize strategy with drafts.
-
-```
-var draftsSequelize = require('drafts-sequelize');
-drafts.load(draftsSequelize);
-```
-
-Then you draft your data. The only rule is that the name of your draft matches the name of the model you declared in sequelize.
-
-```
-	drafts.plan(
-		{
-			Project: {
-				title: function(){ return Faker.Name.findName() },
-				description: function(){ return Faker.Lorem.findSentences() };
- 			}
- 		});
-
-	project = drafts.Project.build();
-
-```
-
-
-In the future I'll be adding hooks, which will look something like the below (hopefully a cleaner language):
-
-```
-	drafts.plan(
-		{
-			Project: {
-				title: function(){ return Faker.Name.findName() },
-				description: function(){ return Faker.Lorem.findSentences() };
-				_hooks: {
-					build: {
-						function(project, cb) {
-							Task.create({});
-							project.tasks = task;
-							project.save().success(cb(project));
-					}
-				}
- 		});
-
-	project = drafts.Project.build();
-
-```

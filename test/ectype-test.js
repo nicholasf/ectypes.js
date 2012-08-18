@@ -36,6 +36,7 @@ describe('configuring strategies', function(){
 		ectypes.load(simpleStrategy);
 		ectypes.add(projectPlan);
 		var project = ectypes.Project.build();
+		console.log(project.title);
 		should.exist(project.title);
 	});
 });
