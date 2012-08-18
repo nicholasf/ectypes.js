@@ -61,7 +61,7 @@ ectypes.add({
 
 ### Writing Strategies
 
-Ectpyes uses a strategy pattern to specify proxied calls to whichever underlying persistence layer(s) you might like to use - they're very simple to write. 
+Ectypes uses a strategy pattern to specify proxied calls to whichever underlying persistence layer(s) you might like to use - they're very simple to write. 
 
 Current examples:
 
