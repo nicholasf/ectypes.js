@@ -43,6 +43,7 @@ project = ectypes.Project.build();
 console.log(project.title); //gives 'Elaina Orn', a value produced by the Faker library.
 ```
 
+In the above example, the simpleStrategy has defined a build(modelName, values) function, which ectypes will invoke, returning what it returns. 
 
 Ectypes can also take **_hooks** to run on the produced object after a strategy's function has executed.
 
