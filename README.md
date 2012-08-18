@@ -65,9 +65,11 @@ ectypes.add({
 
 Ectypes uses a strategy pattern to specify proxied calls to whichever underlying persistence layer(s) you might like to use - they're very simple to write. 
 
-Current examples:
 
-Current strategies - sequelize - http://www.sequelizejs.com/ . (Only build is supported, but that's enough to begin with).
+Current strategies:
+
+ectypes-sequelize - http://github.com/nicholasf/ectypes-sequelize.js (for Sequelize - http://www.sequelizejs.com/).
+
 
 If you write one, please let me know.
 
