@@ -42,13 +42,13 @@ console.log(project.title); //gives 'Elaina Orn', a value produced by the Faker 
 ```
 
 
-Ectypes can also take hooks to run on the produced object after a strategy's function has executed.
+Ectypes can also take **_hooks** to run on the produced object after a strategy's function has executed.
 
 ```
 ectypes.add({
 	Project: {
 		title: function(){ return Faker.Name.findName() }
-		, hooks: ["after creation, add a task to the project", function(project, funcName){
+		, _hooks: ["after creation, add a task to the project", function(project, funcName){
 			if (funcName === "create"){ 
 			project.addTask(ectypes.Task.build()); 
 		}
