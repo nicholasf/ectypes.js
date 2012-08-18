@@ -8,7 +8,7 @@
   },
   "main": "lib/ectypes",
   "engines": {
-    "node": "~0.8.4"
+    "node": "*"
   },
   "dependencies": {
   },
