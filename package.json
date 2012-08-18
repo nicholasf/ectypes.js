@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git://github.com/nicholasf/ectypes.git"
   },
-  "main": "lib/drafts",
+  "main": "lib/ectypes",
   "engines": {
     "node": "~0.8.4"
   },
