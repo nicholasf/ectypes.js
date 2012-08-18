@@ -98,7 +98,6 @@ describe('hooks', function(){
 	drafts.load(draftsSequelize);
 	drafts.plan(projectHookPlan);
 	var project = drafts.Project.build();
-	var project3 = drafts.Project.build();
 
 	it('constructs the planned foo', function(){
 		project.title.should.match(/hooked/);
