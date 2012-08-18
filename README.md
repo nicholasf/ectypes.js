@@ -23,6 +23,8 @@ Ectypes by itself is a DSL for buiding data types and specifying how they should
 Ectypes take descriptions of data types to build, usually in a test context.
 
 ```
+var ectypes = require('ectypes');
+
 ectypes.add({
 	Project: {
 		title: function(){ return Faker.Name.findName() }
