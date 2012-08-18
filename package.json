@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nicholasf/ectypes.git"
+    "url": "git://github.com/nicholasf/ectypes.js.git"
   },
   "main": "lib/ectypes",
   "engines": {
