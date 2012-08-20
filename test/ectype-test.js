@@ -66,3 +66,26 @@ describe('hooks', function(){
 		project.title.should.match(/build/);
 	});
 });
+
+
+var counter = 1;
+projectPlan = {
+	Project: {
+		title: function(){ return Faker.Name.findName() },
+		count: function(){ 
+			counter = ++counter;
+			return counter; }
+	}
+};
+
+
+describe('transforming values', function(){
+	it('generates new values each proxy call', function(){
+		ectypes.load(simpleStrategy);
+		ectypes.add(projectPlan);
+		var project1 = ectypes.Project.build();
+		var project2 = ectypes.Project.build();
+
+		project1.count.should.not.equal(project2.count); 
+	});	
+});
