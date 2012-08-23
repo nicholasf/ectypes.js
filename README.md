@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/nicholasf/ectypes.js.png)](http://travis-ci.org/nicholasf/ectypes.js)
 # ectypes
 
 A way to produce test objects quickly with any persistence layer.
