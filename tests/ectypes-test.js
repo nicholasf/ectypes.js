@@ -1,6 +1,6 @@
 var ectypes = require('./../lib/ectypes')
 	, should = require('should')
-	, Faker = require('faker')
+	, Faker = require('Faker')
   , simpleStrategy = require('./simple-strategy');
 
 var projectPlan = {
