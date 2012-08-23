@@ -1,7 +1,7 @@
 {
   "author": "nicholas faiz",
   "name": "ectypes",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/nicholasf/ectypes.js.git"
@@ -17,5 +17,8 @@
     "Faker": "*",
     "mocha": "~1.3.2",
     "should": "~1.1.0"
+  },
+  "scripts": {
+    "test": "mocha --ignore-leaks tests/ectypes-test.js"
   }
 }
