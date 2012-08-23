@@ -1,5 +1,4 @@
 var ectypes = require('./../lib/ectypes')
-	, Sequelize = require('sequelize')
 	, should = require('should')
 	, Faker = require('faker')
   , simpleStrategy = require('./simple-strategy');
