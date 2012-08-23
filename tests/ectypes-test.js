@@ -54,7 +54,6 @@ var projectHookPlan = {
 describe('hooks', function(){
 	ectypes.load(simpleStrategy);
 	ectypes.add(projectHookPlan);
-	console.log(ectypes.Project);
 	var project = ectypes.Project.build();
 
 	it('constructs the planned foo', function(){
