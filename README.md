@@ -19,7 +19,7 @@ npm install ectypes
 
 ## Explanation
 
-Ectypes by itself is a DSL for buiding data types and specifying how they should be filled with data. 
+Ectypes by itself is a DSL for building data types and specifying how they should be filled with data. 
 
 Ectypes take descriptions of data types to build, usually in a test context.
 
@@ -86,4 +86,4 @@ mocha tests/ectypes-test.js
 
 ## More Info
 
-I originally had Ectypes working for Backbone.js, too. So it is possible to enable this testing for browser based development. If anyone wants this to discuss it, let me know.
+Ectypes originally worked for Backbone.js. So it is possible to enable this testing for browser based development. If anyone wants to discuss it, let me know.
