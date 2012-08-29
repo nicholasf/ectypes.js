@@ -12,10 +12,6 @@ A blueprint has keys and values.
 
 A blueprint can be applied in a context to produce an ectype loaded with keys referencing invoked values.
 
-context.producers();
-
-
-
 
 # ectypes
 A way to produce test objects quickly with any persistence layer.
