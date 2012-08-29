@@ -5,8 +5,11 @@ ectypes has been rewritten slightly. Strategies will continue to work, the only 
 var ctx = require('ectypes').createContext();
 
 A context takes blueprints.
+
 A context takes a strategy.
+
 A blueprint has keys and values.
+
 A blueprint can be applied in a context to produce an ectype loaded with keys referencing invoked values.
 
 context.producers();
