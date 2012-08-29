@@ -1,45 +1,65 @@
-var ectypes = require('./../lib/ectypes')
+var ctx = require('./../lib/ectypes').createContext()
 	, should = require('should')
 	, Faker = require('Faker')
   , simpleStrategy = require('./simple-strategy');
 
-var projectPlan = {
+var projectBlueprint = {
 	Project: {
 		title: function(){ return Faker.Name.findName() }
 	}
 };
 
+var multiBlueprint = [
+	{Person: {
+		title: function(){ return Faker.Name.findName() }
+	}}
+	, {Ancestor: {
+		title: function(){ return Faker.Name.findName() }
+	}}
+];
+
 describe('configuring strategies', function(){
-	it('borks if you call ectypes.plan without setting a strategy', function(){
+	it('borks if you call ctx.add without setting a strategy', function(){
 			try {
-				ectypes.plan({Project: {}}); 
+				ctx.add({Project: {}}); 
 			}
 			catch(err){
+				err.toString().should.equal('Error: Ectypes - please set a default strategy on your context or an overriding _strategy in your blueprint.');
 				should.exist(err);
 			}
 	});
+});
 
-	it('creates a proxy for planned foos', function(){
-		ectypes.load(simpleStrategy);
-		ectypes.add(projectPlan);
-		should.exist(ectypes.Project);
+describe('creating producers from blueprints', function(){
+
+	it('creates a producer for a single blueprinted Project', function(){
+		ctx.load(simpleStrategy);
+		ctx.add(projectBlueprint);
+		should.exist(ctx.Project);
+	}); 
+
+	it('creates producers for an array of blueprints', function(){
+		ctx.load(simpleStrategy);
+		ctx.add(multiBlueprint);
+		should.exist(ctx.Person);
+		should.exist(ctx.Ancestor);
 	});
 
-	it('maps the strategies to the planned foos', function(){
-		ectypes.load(simpleStrategy);
-		ectypes.add(projectPlan);
-		should.exist(ectypes.Project.build);
+	it('maps the strategies functions onto the producer', function(){
+		ctx.load(simpleStrategy);
+		ctx.add(projectBlueprint);
+		should.exist(ctx.Project.build);
 	});
 
-	it('constructs the planned foo', function(){
-		ectypes.load(simpleStrategy);
-		ectypes.add(projectPlan);
-		var project = ectypes.Project.build();
+	it('the build function on simpleStrategy called from the producer works', function(){
+		ctx.load(simpleStrategy);
+		ctx.add(projectBlueprint);
+		var project = ctx.Project.build();
 		should.exist(project.title);
 	});
 });
 
-var projectHookPlan = {
+var projectHookBlueprint = {
 	Project: {
 		title: function(){ return Faker.Name.findName() }
 		, _hooks: [{
@@ -52,9 +72,9 @@ var projectHookPlan = {
 }
 
 describe('hooks', function(){
-	ectypes.load(simpleStrategy);
-	ectypes.add(projectHookPlan);
-	var project = ectypes.Project.build();
+	ctx.load(simpleStrategy);
+	ctx.add(projectHookBlueprint);
+	var project = ctx.Project.build();
 
 	it('constructs the planned foo', function(){
 		project.title.should.match(/hooked/);

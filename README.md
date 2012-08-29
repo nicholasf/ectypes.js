@@ -1,6 +1,20 @@
 [![build status](https://secure.travis-ci.org/nicholasf/ectypes.js.png)](http://travis-ci.org/nicholasf/ectypes.js)
-# ectypes
 
+ectypes has been rewritten slightly. Strategies will continue to work, the only difference is a better formalization of concepts. You now set up a context (see the tests for now).
+
+var ctx = require('ectypes').createContext();
+
+A context takes blueprints.
+A context takes a strategy.
+A blueprint has keys and values.
+A blueprint can be applied in a context to produce an ectype loaded with keys referencing invoked values.
+
+context.producers();
+
+
+
+
+# ectypes
 A way to produce test objects quickly with any persistence layer.
 
 ### The Name
