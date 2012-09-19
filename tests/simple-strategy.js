@@ -1,14 +1,18 @@
+var SimpleStrategy = function(){}
+
 //a simple strategy for testing
-exports.setup = function(){
+SimpleStrategy.prototype.setup = function(){
 	return 'setup!';
 };
 
-exports.build = function(model, values){ 
+SimpleStrategy.prototype.build = function(model, values){ 
 	return values;
 };
 
-exports.create = function(model, values){ 
+SimpleStrategy.prototype.create = function(model, values){ 
 	return values;
 };
 
-exports.ignores = ['setup', 'ignores'];
+SimpleStrategy.prototype.ignores = ['setup', 'ignores'];
+
+module.exports = SimpleStrategy;
