@@ -24,7 +24,7 @@ Ectypes uses a *strategy* to identify how to talk to whichever persistence layer
 
 ```
 var ectypes = require('ectypes')
-  , ctx = require('./../lib/ectypes').createContext()
+  , ctx = ectypes.createContext()
   , SimpleStrategy = require('./simple-strategy');
 
 ctx.load(new SimpleStrategy());
