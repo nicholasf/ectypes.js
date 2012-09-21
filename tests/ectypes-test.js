@@ -1,7 +1,7 @@
 var ctx = require('./../lib/ectypes').createContext()
 	, should = require('should')
-	, Faker = require('Faker')
-  , simpleStrategy = require('./simple-strategy');
+	, Faker = require('faker2')
+  , SimpleStrategy = require('./simple-strategy');
 
 var projectBlueprint = {
 	Project: {
@@ -33,54 +33,46 @@ describe('configuring strategies', function(){
 describe('creating producers from blueprints', function(){
 
 	it('creates a producer for a single blueprinted Project', function(){
-		ctx.load(simpleStrategy);
+		ctx.load(new SimpleStrategy());
 		ctx.add(projectBlueprint);
 		should.exist(ctx.Project);
 	}); 
 
 	it('creates producers for an array of blueprints', function(){
-		ctx.load(simpleStrategy);
+		ctx.load(new SimpleStrategy());
 		ctx.add(multiBlueprint);
 		should.exist(ctx.Person);
 		should.exist(ctx.Ancestor);
 	});
 
 	it('maps the strategies functions onto the producer', function(){
-		ctx.load(simpleStrategy);
+		ctx.load(new SimpleStrategy());
 		ctx.add(projectBlueprint);
 		should.exist(ctx.Project.build);
 	});
 
 	it('the build function on simpleStrategy called from the producer works', function(){
-		ctx.load(simpleStrategy);
+		ctx.load(new SimpleStrategy());
 		ctx.add(projectBlueprint);
-		var project = ctx.Project.build();
-		should.exist(project.title);
+
+		var cb = function(err, project){
+			should.exist(project.title);
+		}
+		ctx.Project.build(cb);
 	});
 });
 
-var projectHookBlueprint = {
-	Project: {
-		title: function(){ return Faker.Name.findName() }
-		, _hooks: [{
-			'concats _hooked onto the project title': function(project, functionName){
-				project.title = project.title + "_hooked_" + functionName;
-				return project;
+
+describe('overiding values', function(){
+	ctx.load(new SimpleStrategy());
+	ctx.add(projectBlueprint);
+
+	it('without getting them confused with the cb', function(){
+			var overrider = {title: 'was overridden'};
+			var cb = function(err, project){
+				project.title.should.equal('was overridden');				
 			}
-		}]
-	}
-}
 
-describe('hooks', function(){
-	ctx.load(simpleStrategy);
-	ctx.add(projectHookBlueprint);
-	var project = ctx.Project.build();
-
-	it('constructs the planned foo', function(){
-		project.title.should.match(/hooked/);
-	});
-
-	it('passes in the function name used, so hooklogic can choose whether or not to do something', function(){
-		project.title.should.match(/build/);
-	});
+			ctx.Project.build(overrider, cb);
+		})	
 });

@@ -1,17 +1,4 @@
-[![build status](https://secure.travis-ci.org/nicholasf/ectypes.js.png)](http://travis-ci.org/nicholasf/ectypes.js)
-
-ectypes has been rewritten slightly. Strategies will continue to work, the only difference is a better formalization of concepts. You now set up a context (see the tests for now).
-
-var ctx = require('ectypes').createContext();
-
-A context takes blueprints.
-
-A context takes a strategy.
-
-A blueprint has keys and values.
-
-A blueprint can be applied in a context to produce an ectype loaded with keys referencing invoked values.
-
+ [![build status](https://secure.travis-ci.org/nicholasf/ectypes.js.png)](http://travis-ci.org/nicholasf/ectypes.js)
 
 # ectypes
 A way to produce test objects quickly with any persistence layer.
@@ -29,54 +16,59 @@ As opposed to prototype, ectype originally meant “wrought in relief” in Gree
 npm install ectypes
 ```
 
+ectypes has been rewritten slightly. Strategies will continue to work, the only difference is a better formalization of concepts. You now set up a context (see the tests for now).
 
-## Explanation
+## Explanation: Contexts, Strategies and Blueprints.
 
-Ectypes by itself is a DSL for building data types and specifying how they should be filled with data. 
+Ectypes is a DSL for building persistable data types and describing how they should be filled with data. If you've ever used factory_girl or machinist (Ruby testing libraries) the concept will be familiar to you.
 
-Ectypes take descriptions of data types to build, usually in a test context.
+Ectypes uses a *strategy* to identify how to talk to whichever persistence layer you've chosen to use (mongodb, relational db, redis, whatever);
 
 ```
-var ectypes = require('ectypes');
+var ectypes = require('ectypes')
+  , ctx = require('./../lib/ectypes').createContext()
+  , SimpleStrategy = require('./simple-strategy');
 
-ectypes.add({
+ctx.load(new SimpleStrategy());
+
+```
+
+Ectype contexts take *blueprints* of data types, and sets them up in the *context*.
+
+```
+var projectBlueprint = {
 	Project: {
 		title: function(){ return Faker.Name.findName() }
 	}
-});
+};
+
+ctx.add(projectBlueprint);
 ```
 
-Ectypes need **strategies** to do things with the type.
-
-```
-ectypes.load(simpleStrategy);
-```
+This blueprint could have held any amount of object descriptions.
 
 Every function on the strategy (except for what is listed in an **ignores** array) is then mapped to the type, for example
 
 ```
-project = ectypes.Project.build();
-console.log(project.title); //gives 'Elaina Orn', a value produced by the Faker library.
+ctx.Project.build(function(err, project){ 
+  console.log(project.title); //gives 'Elaina Orn', a value produced by the Faker library.
+});
+
 ```
 
 In the above example, the simpleStrategy has defined a build(modelName, values) function, which ectypes will invoke, returning what it returns. 
 
-Ectypes can also take **_hooks** to run on the produced object after a strategy's function has executed.
+Alternately, if you wanted to override the value of the title in some circumstances:
 
 ```
-ectypes.add({
-	Project: {
-		title: function(){ return Faker.Name.findName() }
-		, _hooks: ["after creation, add a task to the project", function(project, funcName){
-			if (funcName === "create"){ 
-			project.addTask(ectypes.Task.build()); 
-		}
-		}]
-	}
-	, Task {title: function(){ return Faker.Name.findName())
+ctx.Project.build({title: 'Someone else'}, function(err, project){ 
+  console.log(project.title); //gives 'Someone else'
 });
 ```
 
+In the above, if the first argument to a strategy call is an object, any values it contains will be used to override the generated ones. If it's a function then it's assumed to be the conventional Node.js callback function(err, result).
+
+It is up to you, when writing the strategy, what behaviours you want to support.
 
 ## Writing Strategies
 
@@ -85,7 +77,7 @@ Ectypes uses a strategy pattern to specify proxied calls to whichever underlying
 
 Current strategies:
 
-ectypes-sequelize - http://github.com/nicholasf/ectypes-sequelize.js (for Sequelize - http://www.sequelizejs.com/).
+ectypes-sequelize - http://github.com/nicholasf/ectypes-sequelize.js (for Sequelize - http://www.sequelizejs.com/). - This is only compatible with 0.0.5 and earlier versions of ectypes.
 
 
 If you write one, please let me know.
