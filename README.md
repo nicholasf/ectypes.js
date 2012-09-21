@@ -54,7 +54,7 @@ ctx.Project.build(function(err, project){
 
 ```
 
-In the above example, the simpleStrategy has defined a function named 'build' accepting the arguments '(modelName, values)'. Ectypes builds a *producer* function mapping to the strategy function and passing it the appropriate data.
+In the above example, the simpleStrategy has defined a function named 'build' accepting the arguments '(modelName, values, callback)'. Ectypes builds a *producer* function mapping to the strategy function and passing it the appropriate data.
 
 If you wanted to override the value of the title in some circumstances:
 
