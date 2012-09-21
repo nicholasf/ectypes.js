@@ -83,7 +83,7 @@ If you write one, please let me know.
 ## Running Tests
 
 ```
-mocha tests/ectypes-test.js 
+npm test 
 ```
 
 
