@@ -16,11 +16,11 @@ As opposed to prototype, ectype originally meant “wrought in relief” in Gree
 npm install ectypes
 ```
 
-## Explanation: Contexts, Strategies and Blueprints.
+## Explanation: Contexts, Strategies, Blueprints and Producers.
 
 Ectypes is a DSL for building persistable data types and describing how they should be filled with data. If you've ever used factory_girl or machinist (Ruby testing libraries) the concept will be familiar to you.
 
-Ectypes uses a *strategy* to identify how to talk to whichever persistence layer you've chosen to use (mongodb, relational db, redis, whatever);
+Ectypes uses a *strategy* to identify how to talk to whichever persistence layer you've chosen to use (mongodb, relational db, redis, whatever).
 
 ```
 var ectypes = require('ectypes')
@@ -31,7 +31,7 @@ ctx.load(new SimpleStrategy());
 
 ```
 
-Ectype contexts take *blueprints* of data types, and sets them up in the *context*.
+Ectype *contexts* take *blueprints* of data types, and make them available.
 
 ```
 var projectBlueprint = {
@@ -45,7 +45,7 @@ ctx.add(projectBlueprint);
 
 This blueprint could have held any amount of object descriptions.
 
-Every function on the strategy (except for what is listed in an **ignores** array) is then mapped to the type, for example
+Every function on the strategy (except for what is listed in an **ignores** array) is then mapped to the type, as a *producer*.
 
 ```
 ctx.Project.build(function(err, project){ 
@@ -54,9 +54,9 @@ ctx.Project.build(function(err, project){
 
 ```
 
-In the above example, the simpleStrategy has defined a build(modelName, values) function, which ectypes will invoke, returning what it returns. 
+In the above example, the simpleStrategy has defined a function named 'build' accepting the arguments '(modelName, values)'. Ectypes builds a *producer* function mapping to the strategy function and passing it the appropriate data.
 
-Alternately, if you wanted to override the value of the title in some circumstances:
+If you wanted to override the value of the title in some circumstances:
 
 ```
 ctx.Project.build({title: 'Someone else'}, function(err, project){ 
