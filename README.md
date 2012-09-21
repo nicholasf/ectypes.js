@@ -16,8 +16,6 @@ As opposed to prototype, ectype originally meant “wrought in relief” in Gree
 npm install ectypes
 ```
 
-ectypes has been rewritten slightly. Strategies will continue to work, the only difference is a better formalization of concepts. You now set up a context (see the tests for now).
-
 ## Explanation: Contexts, Strategies and Blueprints.
 
 Ectypes is a DSL for building persistable data types and describing how they should be filled with data. If you've ever used factory_girl or machinist (Ruby testing libraries) the concept will be familiar to you.
