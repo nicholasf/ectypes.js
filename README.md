@@ -54,9 +54,9 @@ ctx.Project.build(function(err, project){
 
 ```
 
-In the above example, the simpleStrategy has defined a function named 'build' accepting the arguments '(modelName, values, callback)'. Ectypes builds a *producer* function mapping to the strategy function and passing it the appropriate data.
+In the above example, the simpleStrategy has defined a function named 'build' accepting the arguments '(modelName, values, callback)'. Ectypes builds a *producer* function mapping to the *strategy's* function and passing it the appropriate data.
 
-If you wanted to override the value of the title in some circumstances:
+If you wanted to override the value of some test data in some circumstances (to set up relations to other objects, etc.):
 
 ```
 ctx.Project.build({title: 'Someone else'}, function(err, project){ 
@@ -66,7 +66,7 @@ ctx.Project.build({title: 'Someone else'}, function(err, project){
 
 In the above, if the first argument to a strategy call is an object, any values it contains will be used to override the generated ones. If it's a function then it's assumed to be the conventional Node.js callback function(err, result).
 
-It is up to you, when writing the strategy, what behaviours you want to support.
+It is up to you, when writing the strategy, which behaviours you want to support.
 
 ## Writing Strategies
 
