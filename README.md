@@ -75,7 +75,9 @@ Ectypes uses a strategy pattern to specify proxied calls to whichever underlying
 
 Current strategies:
 
-ectypes-sequelize - http://github.com/nicholasf/ectypes-sequelize.js (for Sequelize - http://www.sequelizejs.com/). - This is only compatible with 0.0.5 and earlier versions of ectypes.
+* ectypes-postgres - https://github.com/nicholasf/ectypes-postgres.js . A barebones way of inserting test data into postgres.
+
+* ectypes-sequelize - http://github.com/nicholasf/ectypes-sequelize.js (for Sequelize - http://www.sequelizejs.com/). - This is only compatible with 0.0.5 and earlier versions of ectypes.
 
 
 If you write one, please let me know.
