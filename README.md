@@ -43,7 +43,20 @@ var projectBlueprint = {
 ctx.add(projectBlueprint);
 ```
 
-This blueprint could have held any amount of object descriptions.
+Blueprints can either be added as objects or an array.
+
+```
+var multiBlueprint = [
+  {Person: {
+    title: function(){ return Faker.Name.findName() }
+  }}
+  , {Ancestor: {
+    title: function(){ return Faker.Name.findName() }
+  }}
+];
+
+ctx.load(multiBlueprint);
+```
 
 Every function on the strategy (except for what is listed in an **ignores** array) is then mapped to the type, as a *producer*.
 
