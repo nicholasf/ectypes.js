@@ -74,5 +74,15 @@ describe('overiding values', function(){
 			}
 
 			ctx.Project.build(overrider, cb);
-		})	
+		});
+	
+		it('ignores override fields which don\'t exist', function(){
+			var overrider = {obviously_not_there_title: 'was overridden', title: 'was still overrdidden'};
+			var cb = function(err, project){
+				project.title.should.equal('was still overrdidden');				
+			}
+
+			ctx.Project.build(overrider, cb);
+		});
+
 });
