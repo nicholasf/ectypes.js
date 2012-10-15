@@ -106,7 +106,7 @@ npm test
 ## Contributors
 
 * nicholasf
-* damienwhaley (patch on package.json)
+* damienwhaley 
 
 
 ## More Info
