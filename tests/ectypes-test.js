@@ -63,7 +63,7 @@ describe('creating producers from blueprints', function(){
 });
 
 
-describe('overiding values', function(){
+describe('overriding values', function(){
 	ctx.load(new SimpleStrategy());
 	ctx.add(projectBlueprint);
 
@@ -76,10 +76,11 @@ describe('overiding values', function(){
 			ctx.Project.build(overrider, cb);
 		});
 	
-		it('ignores override fields which don\'t exist', function(){
-			var overrider = {obviously_not_there_title: 'was overridden', title: 'was still overrdidden'};
+		it('includes override fields which don\'t exist in the blueprint', function(){
+			var overrider = {unblueprinted: 'should appear', title: 'was still overrdidden'};
 			var cb = function(err, project){
-				project.title.should.equal('was still overrdidden');				
+				project.title.should.equal('was still overrdidden');
+				should.exist(project.unblueprinted)
 			}
 
 			ctx.Project.build(overrider, cb);
