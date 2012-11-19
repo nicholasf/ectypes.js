@@ -104,7 +104,6 @@ var projectDependencyBlueprint = {
 	}
 };
 
-//the issue is to ensure that the Person constructs an Ancestor automatically and takes the surname
 describe('dependencies', function(){
 	ctx.load(new SimpleStrategy());
 	ctx.add(projectDependencyBlueprint);
