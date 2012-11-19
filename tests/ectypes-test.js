@@ -97,7 +97,7 @@ describe('overriding values', function(){
 
 var projectDependencyBlueprint = {
 	Project: {
-		dependency: function(ctx){ 
+		dependency: function(){ 
 			return {title: 'dependency is met', some_id: 99};
 		}
 		, title: function(){ return Faker.Name.findName() }
