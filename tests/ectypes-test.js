@@ -98,7 +98,7 @@ describe('overriding values', function(){
 var projectDependencyBlueprint = {
 	Project: {
 		dependency: function(ctx){ 
-			return {title: 'dependency is met'};
+			return {title: 'dependency is met', some_id: 99};
 		}
 		, title: function(){ return Faker.Name.findName() }
 	}
@@ -112,6 +112,7 @@ describe('dependencies', function(){
 	it('are run', function(){
 		ctx.Project.build( function(err, person){
 			person.title.should.equal('dependency is met');
+			person.some_id.should.equal(99);
 		});
 	});
 });
