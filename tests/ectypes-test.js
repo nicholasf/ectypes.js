@@ -60,6 +60,13 @@ describe('creating producers from blueprints', function(){
 		}
 		ctx.Project.build(cb);
 	});
+
+	it('does not create ectype data before the producer function is called', function(){
+		ctx.load(new SimpleStrategy());
+		ctx.add(projectBlueprint);
+		should.exist(ctx.Project);
+
+	});
 });
 
 
@@ -85,5 +92,27 @@ describe('overriding values', function(){
 
 			ctx.Project.build(overrider, cb);
 		});
-
 });
+
+
+var projectDependencyBlueprint = {
+	Project: {
+		dependency: function(ctx){ 
+			return {title: 'dependency is met'};
+		}
+		, title: function(){ return Faker.Name.findName() }
+	}
+};
+
+//the issue is to ensure that the Person constructs an Ancestor automatically and takes the surname
+describe('dependencies', function(){
+	ctx.load(new SimpleStrategy());
+	ctx.add(projectDependencyBlueprint);
+
+	it('are run', function(){
+		ctx.Project.build( function(err, person){
+			person.title.should.equal('dependency is met');
+		});
+	});
+});
+
