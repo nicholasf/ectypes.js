@@ -42,7 +42,7 @@ var projectBlueprint = {
         cb(null, {role_id: 8}) },
       function(vals, cb){
         Permissions.find({role_id: vals.role_id}, function(err, permissions){ //a snippet from Downstairs.js
-          ctx.permissions = permissions
+          vals.permissions = permissions
           cb(null, vals);
         })
     }]
