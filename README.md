@@ -40,9 +40,10 @@ var projectBlueprint = {
       function(cb){ 
         //... some asynchronous logic
         cb(null, {role_id: 8}) },
-      function(ctx, cb){
-        Permissions.find({role_id: ctx.role_id}, function(err, permissions){ //a snippet from Downstairs.js
-          cb(null, ctx.permissions = permissions);
+      function(vals, cb){
+        Permissions.find({role_id: vals.role_id}, function(err, permissions){ //a snippet from Downstairs.js
+          ctx.permissions = permissions
+          cb(null, vals);
         })
     }]
 		, title: function(){ return Faker.Name.findName() }
@@ -52,7 +53,7 @@ var projectBlueprint = {
 ctx.add(projectBlueprint);
 ```
 
-In the above the array of functions in befores will be processed in order. The first function takes a callback, the second and subsequent functions take an object to pass on their generated values down the line of functions. This means that associated data or preconditions can be fulfilled asynchronously before the ectype is constructed.
+In the above the array of functions in befores will be processed in order. The first function takes a callback, the second and subsequent functions take an object to pass on their generated values down the line of functions and a callback - function(ctx, cb) in the above. This means that associated data or preconditions can be fulfilled asynchronously before the ectype is constructed.
 
 Outside of the befores array properties that map to functions are treated synchronously (typically mapped to helper libraries that produce test data).
 
