@@ -122,7 +122,3 @@ npm test
 * nicholasf
 * damienwhaley 
 
-
-## More Info
-
-Ectypes originally worked for Backbone.js. So it is possible to enable this testing for browser based development. If anyone wants to discuss it, let me know.
