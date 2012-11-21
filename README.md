@@ -41,7 +41,7 @@ var projectBlueprint = {
         //... some asynchronous logic
         cb(null, {role_id: 8}) },
       function(ctx, cb){
-        Permissions.find({role_id: 8}, function(err, permissions){
+        Permissions.find({role_id: 8}, function(err, permissions){ //a snippet from Downstairs.js
           cb(null, ctx.permissions = permissions);
         })
     }]
