@@ -1,4 +1,4 @@
-var ctx = require('./../lib/ectypes').createContext()
+var ectypes = require('./../lib/ectypes')
   , should = require('should')
   , Faker = require('faker2')
   , SimpleStrategy = require('./simple-strategy');
@@ -19,6 +19,19 @@ var multiBlueprint = [
 ];
 
 describe('configuring strategies', function(){
+  var ctx;
+  var projectBlueprint;
+
+  beforeEach(function(){
+    ctx = ectypes.createContext();
+
+    var projectBlueprint = {
+      Project: {
+        title: function(){ return Faker.Name.findName() }
+      }
+    };
+  });
+
   it('borks if you call ctx.add without setting a strategy', function(){
       try {
         ctx.add({Project: {}}); 
@@ -31,6 +44,33 @@ describe('configuring strategies', function(){
 });
 
 describe('creating producers from blueprints', function(){
+  var ctx;
+  var projectBlueprint;
+
+  beforeEach(function(){
+    ctx = ectypes.createContext();
+
+    var projectBlueprint = {
+      Project: {
+        title: function(){ return Faker.Name.findName() }
+      }
+    };
+
+ var multiBlueprint = [
+  {Person: {
+    title: function(){ return Faker.Name.findName() }
+  }}
+  , {Ancestor: {
+    title: function(){ return Faker.Name.findName() }
+  }}
+];
+   
+  });
+
+
+  beforeEach(function(){
+    ctx = ectypes.createContext();
+  })
 
   it('creates a producer for a single blueprinted Project', function(){
     ctx.load(new SimpleStrategy());
@@ -71,8 +111,14 @@ describe('creating producers from blueprints', function(){
 
 
 describe('overriding values', function(){
-  ctx.load(new SimpleStrategy());
-  ctx.add(projectBlueprint);
+  var ctx;
+
+  beforeEach(function(){
+    ctx = ectypes.createContext();
+    ctx.load(new SimpleStrategy());
+    ctx.add(projectBlueprint);
+  })
+
 
   it('without getting them confused with the cb', function(){
       var overrider = {title: 'was overridden'};
@@ -95,29 +141,64 @@ describe('overriding values', function(){
 });
 
 
-var projectDependencyBlueprint = {
-  Project: {
-    befores:
-      [function(cb){ 
-        cb(null, {another_id: 13, some_id: 99});
-      }
-      ,function(ctx, cb){
-        var next_id = ctx.some_id + 1;
-        cb(null, {third_id: next_id}) 
-      }]
-    , title: function(){ return Faker.Name.findName() }
-  }
-};
 
 describe('dependencies', function(done){
+  var ctx;
+  var projectDependencyBlueprint;
+
+  beforeEach(function(){
+    ctx = ectypes.createContext();
+
+    projectDependencyBlueprint = {
+      Project: {
+        befores:
+          [function(cb){ 
+            cb(null, {another_id: 13, some_id: 99});
+          }
+          ,function(ctx, cb){
+            var next_id = ctx.some_id + 1;
+            cb(null, {third_id: next_id}) 
+          }]
+        , title: function(){ return Faker.Name.findName() }
+      }
+    };
+
+  })
+
   it('are run', function(done){
     ctx.load(new SimpleStrategy());
     ctx.add(projectDependencyBlueprint);
 
     ctx.Project.build( function(err, project){
-      project.third_id.should.equal(100)
+      project.third_id.should.equal(100);
       done()
     });
+  });
+});
+
+
+describe('blueprint functions can support callbacks', function(done){
+  var ctx;
+  var projectBlueprint;
+
+  beforeEach(function(){
+    ctx = ectypes.createContext();
+    projectBlueprint = {
+      Project: {
+        befores: [function(cb){ cb(null, {name: 'fred'})}]
+        , title: function(){ return Faker.Name.findName() }
+      }
+    };
+  })
+
+  it('detects and uses a blueprint callback', function(done){
+    ctx.load(new SimpleStrategy());
+    ctx.add(projectBlueprint);
+
+    ctx.Project.build( function(err, project){
+      project.name.should.equal('fred');
+      done();
+    })
   });
 });
 

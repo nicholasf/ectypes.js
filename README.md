@@ -36,14 +36,27 @@ Ectype *contexts* take *blueprints* of data types, and make them available.
 ```
 var projectBlueprint = {
 	Project: {
-		title: function(){ return Faker.Name.findName() }
+    befores: [
+      function(cb){ 
+        //... some asynchronous logic
+        cb(null, {role_id: 8}) },
+      function(ctx, cb){
+        Permissions.find({role_id: 8}, function(err, permissions){
+          cb(null, ctx.permissions = permissions);
+        })
+    }]
+		, title: function(){ return Faker.Name.findName() }
 	}
 };
 
 ctx.add(projectBlueprint);
 ```
 
-Blueprints can either be added as objects or an array.
+In the above the array of functions in befores will be processed in order. The first function takes a callback, the second and subsequent functions take an object to pass on their generated values down the line of functions. This means that associated data or preconditions can be fulfilled asynchronously before the ectype is constructed.
+
+Outside of the befores array properties that map to functions are treated synchronously (typically mapped to helper libraries that produce test data).
+
+Blueprints can also be added as arrays.
 
 ```
 var multiBlueprint = [
