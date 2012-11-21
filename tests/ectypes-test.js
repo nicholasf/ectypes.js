@@ -46,24 +46,25 @@ describe('configuring strategies', function(){
 describe('creating producers from blueprints', function(){
   var ctx;
   var projectBlueprint;
+  var multiBlueprint;
 
   beforeEach(function(){
     ctx = ectypes.createContext();
 
-    var projectBlueprint = {
+    projectBlueprint = {
       Project: {
         title: function(){ return Faker.Name.findName() }
       }
     };
 
- var multiBlueprint = [
-  {Person: {
-    title: function(){ return Faker.Name.findName() }
-  }}
-  , {Ancestor: {
-    title: function(){ return Faker.Name.findName() }
-  }}
-];
+     multiBlueprint = [
+      {Person: {
+        title: function(){ return Faker.Name.findName() }
+      }}
+      , {Ancestor: {
+        title: function(){ return Faker.Name.findName() }
+      }}
+    ];
    
   });
 
