@@ -156,9 +156,9 @@ describe('dependencies', function(done){
           [function(cb){ 
             cb(null, {another_id: 13, some_id: 99});
           }
-          ,function(ctx, cb){
-            var next_id = ctx.some_id + 1;
-            cb(null, {third_id: next_id}) 
+          ,function(vals, cb){
+            vals.next_id = vals.some_id + 1;
+            cb(null, vals) 
           }]
         , title: function(){ return Faker.Name.findName() }
       }
@@ -171,7 +171,8 @@ describe('dependencies', function(done){
     ctx.add(projectDependencyBlueprint);
 
     ctx.Project.build( function(err, project){
-      project.third_id.should.equal(100);
+      project.another_id.should.equal(13);
+      project.next_id.should.equal(100);
       done()
     });
   });
