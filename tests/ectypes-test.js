@@ -182,6 +182,7 @@ describe('dependencies', function(done){
 describe('blueprint functions can support callbacks', function(done){
   var ctx;
   var projectBlueprint;
+  var projectHolderBlueprint;
 
   beforeEach(function(){
     ctx = ectypes.createContext();
@@ -190,6 +191,19 @@ describe('blueprint functions can support callbacks', function(done){
         befores: [function(cb){ cb(null, {name: 'fred'})}]
         , title: function(){ return Faker.Name.findName() }
       }
+    };
+
+    projectHolderBlueprint = {
+      ProjectHolder: {
+        befores: [
+          function(cb){
+            ctx.Project.build(function(err, project){
+              cb(err, {project: project})
+            })
+          }
+        ]
+        , title: function(){ return Faker.Name.findName() }
+      }      
     };
   })
 
@@ -202,5 +216,31 @@ describe('blueprint functions can support callbacks', function(done){
       done();
     })
   });
+
+  it('detects and uses a blueprint callback that can call other blueprints', function(done){
+    ctx.load(new SimpleStrategy());
+    ctx.add(projectBlueprint);
+    ctx.add(projectHolderBlueprint)
+
+    ctx.ProjectHolder.build( function(err, projectHolder){
+      should.exist(projectHolder.project);
+      done();
+    })
+  });
+
+  it('detects and uses a blueprint callback that can call other blueprints, twice', function(done){
+    ctx.load(new SimpleStrategy());
+    ctx.add(projectBlueprint);
+    ctx.add(projectHolderBlueprint)
+
+    ctx.ProjectHolder.build( function(err, projectHolder){
+      should.exist(projectHolder.project);
+      ctx.ProjectHolder.build( function(err, projectHolder2){
+        should.exist(projectHolder2.project);
+        done();
+      });
+    })
+  });
+
 });
 
