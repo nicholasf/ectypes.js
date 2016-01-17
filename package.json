@@ -22,6 +22,6 @@
     "should": "~1.1.0"
   },
   "scripts": {
-    "test": "mocha tests/ectypes-test.js"
+    "test": "mocha"
   }
 }
